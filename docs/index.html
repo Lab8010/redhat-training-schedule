@@ -229,6 +229,40 @@
         color: var(--muted);
         text-align: center;
       }
+      .month-nav {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 0.45rem 0.5rem;
+        margin-bottom: 1.25rem;
+        padding: 0.65rem 0.85rem;
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 10px;
+      }
+      .month-nav .label {
+        font-size: 0.8rem;
+        color: var(--muted);
+        margin-right: 0.15rem;
+      }
+      .month-nav button.nav-month {
+        cursor: pointer;
+        padding: 0.3rem 0.65rem;
+        border-radius: 999px;
+        border: 1px solid var(--border);
+        background: #1e293b;
+        color: var(--text);
+        font-size: 0.8rem;
+        font: inherit;
+      }
+      .month-nav button.nav-month:hover {
+        filter: brightness(1.08);
+      }
+      .month-nav button.nav-month.is-active {
+        border-color: #f8fafc;
+        box-shadow: 0 0 0 1px #0f172a;
+        font-weight: 650;
+      }
     </style>
   </head>
   <body>
@@ -238,7 +272,9 @@
       <strong>Class Status</strong>（凡例または表のバッジ）をクリックすると、そのステータスだけ表示します。
       GitHub Pages では <strong>Settings → Pages</strong> でソースを <code>/docs</code> にすると
       リポジトリのサイト直下（<code>/</code>）から公開されます。
+      終了日が本日より前のクラスは表示しません。複数月に予定があるときは下のボタンで月を切り替えられます。
     </p>
+    <nav id="month-nav" class="month-nav" hidden aria-label="表示月の切り替え"></nav>
     <div id="legend" class="legend" hidden></div>
     <p id="filter-bar" class="filter-bar" hidden></p>
     <div id="app">読み込み中…</div>
@@ -250,6 +286,8 @@
           data: [],
           seenStatus: [],
           filterLabel: null,
+          /** @type {string|null} YYYY-MM で 1 ヶ月だけ表示。null はすべて */
+          selectedMonthKey: null,
         };
 
         function parseCSVLine(line) {
@@ -317,21 +355,83 @@
           return "other";
         }
 
-        function monthKeyFromStart(startVal) {
-          var s = String(startVal || "").trim();
-          var m = s.match(/^(\d{4})-(\d{2})/);
+        function pad2(n) {
+          return n < 10 ? "0" + n : String(n);
+        }
+
+        /** @returns {{y:number, mo:number, d:number}|null} */
+        function parseYmdParts(s) {
+          var str = String(s || "").trim();
+          var m = str.match(/^(\d{4})[\/\-](\d{1,2})[\/\-](\d{1,2})/);
           if (!m) {
-            return "0000-00";
+            return null;
           }
-          return m[1] + "-" + m[2];
+          return {
+            y: parseInt(m[1], 10),
+            mo: parseInt(m[2], 10),
+            d: parseInt(m[3], 10),
+          };
+        }
+
+        function startOfToday() {
+          var n = new Date();
+          return new Date(n.getFullYear(), n.getMonth(), n.getDate());
+        }
+
+        /** @returns {Date|null} その日のローカル 0:00 */
+        function parseYmdToLocalDate(s) {
+          var p = parseYmdParts(s);
+          if (!p) {
+            return null;
+          }
+          return new Date(p.y, p.mo - 1, p.d);
+        }
+
+        function monthKeyFromParts(p) {
+          if (!p) {
+            return "";
+          }
+          return p.y + "-" + pad2(p.mo);
+        }
+
+        function monthKeyFromStart(startVal) {
+          return monthKeyFromParts(parseYmdParts(startVal));
+        }
+
+        function monthKeyForItem(item) {
+          return (
+            monthKeyFromStart(item.start) ||
+            monthKeyFromStart(item.end) ||
+            ""
+          );
+        }
+
+        /** クラス終了日（なければ開始日）が今日未満なら過去扱い */
+        function isNotPastRow(item) {
+          var endD = parseYmdToLocalDate(item.end);
+          if (!endD) {
+            endD = parseYmdToLocalDate(item.start);
+          }
+          if (!endD) {
+            return true;
+          }
+          return endD >= startOfToday();
         }
 
         function monthLabel(key) {
+          if (!key || key === "unknown") {
+            return "日付不明";
+          }
           var p = key.split("-");
           if (p.length < 2) {
             return key;
           }
-          return parseInt(p[0], 10) + "年" + parseInt(p[1], 10) + "月";
+          var y = parseInt(p[0], 10);
+          var mo = parseInt(p[1], 10);
+          if (!isFinite(y) || !isFinite(mo)) {
+            return key;
+          }
+          return y + "年" + mo + "月";
         }
 
         function escapeHtml(s) {
@@ -375,6 +475,44 @@
             '</strong> <button type="button" class="clear-btn" data-clear-filter="1">すべて表示</button>';
         }
 
+        function renderMonthNav() {
+          var nav = document.getElementById("month-nav");
+          var keys = [];
+          var seen = {};
+          for (var i = 0; i < state.data.length; i++) {
+            var mk = monthKeyForItem(state.data[i]) || "unknown";
+            if (!seen[mk]) {
+              seen[mk] = true;
+              keys.push(mk);
+            }
+          }
+          keys.sort();
+          if (keys.length <= 1) {
+            nav.hidden = true;
+            nav.innerHTML = "";
+            return;
+          }
+          nav.hidden = false;
+          var html =
+            '<span class="label">表示月:</span>' +
+            '<button type="button" class="nav-month' +
+            (state.selectedMonthKey == null ? " is-active" : "") +
+            '" data-month-all="1">すべて</button>';
+          for (var j = 0; j < keys.length; j++) {
+            var key = keys[j];
+            var act = state.selectedMonthKey === key ? " is-active" : "";
+            html +=
+              '<button type="button" class="nav-month' +
+              act +
+              '" data-month-key="' +
+              escapeHtml(key) +
+              '">' +
+              escapeHtml(monthLabel(key)) +
+              "</button>";
+          }
+          nav.innerHTML = html;
+        }
+
         function renderLegendChips() {
           var legendEl = document.getElementById("legend");
           legendEl.hidden = false;
@@ -404,6 +542,12 @@
 
         function renderTables() {
           var data = state.data;
+          if (state.selectedMonthKey != null) {
+            data = data.filter(function (it) {
+              var mk = monthKeyForItem(it) || "unknown";
+              return mk === state.selectedMonthKey;
+            });
+          }
           if (state.filterLabel != null) {
             data = data.filter(function (it) {
               return it.status === state.filterLabel;
@@ -413,7 +557,7 @@
           var byMonth = {};
           for (var d = 0; d < data.length; d++) {
             var item = data[d];
-            var mk = monthKeyFromStart(item.start);
+            var mk = monthKeyForItem(item) || "unknown";
             if (!byMonth[mk]) {
               byMonth[mk] = [];
             }
@@ -486,18 +630,12 @@
           var iStat = headerIndex(header, "Class Status");
 
           var data = [];
-          var seenStatus = [];
-          var statusSet = {};
           for (var r = 1; r < rows.length; r++) {
             var row = rows[r];
             if (!row.length || (row.length === 1 && row[0] === "")) {
               continue;
             }
             var st = row[iStat] != null ? String(row[iStat]).trim() : "";
-            if (st && !statusSet[st]) {
-              statusSet[st] = true;
-              seenStatus.push(st);
-            }
             data.push({
               start: row[iStart],
               startT: row[iStartT],
@@ -514,15 +652,62 @@
             return String(a.start).localeCompare(String(b.start));
           });
 
+          data = data.filter(isNotPastRow);
+
+          if (data.length === 0) {
+            state.data = [];
+            state.seenStatus = [];
+            state.filterLabel = null;
+            state.selectedMonthKey = null;
+            document.getElementById("month-nav").hidden = true;
+            document.getElementById("month-nav").innerHTML = "";
+            document.getElementById("legend").hidden = true;
+            document.getElementById("filter-bar").hidden = true;
+            document.getElementById("app").innerHTML =
+              '<p class="empty-filter">本日以降に終了予定のクラスがありません（掲載はすべて過去の終了済みです）。</p>';
+            return;
+          }
+
+          var seenStatus = [];
+          var statusSet = {};
+          for (var u = 0; u < data.length; u++) {
+            var st2 = data[u].status;
+            if (st2 && !statusSet[st2]) {
+              statusSet[st2] = true;
+              seenStatus.push(st2);
+            }
+          }
+
+          var monthSet = {};
+          for (var v = 0; v < data.length; v++) {
+            monthSet[monthKeyForItem(data[v]) || "unknown"] = true;
+          }
+          if (state.selectedMonthKey && !monthSet[state.selectedMonthKey]) {
+            state.selectedMonthKey = null;
+          }
+
           state.data = data;
           state.seenStatus = seenStatus;
           state.filterLabel = null;
+          renderMonthNav();
           renderLegendChips();
           renderFilterBar();
           renderTables();
         }
 
         document.addEventListener("click", function (e) {
+          var monthBtn = e.target.closest("[data-month-key], [data-month-all]");
+          if (monthBtn) {
+            e.preventDefault();
+            if (monthBtn.hasAttribute("data-month-all")) {
+              state.selectedMonthKey = null;
+            } else {
+              state.selectedMonthKey = monthBtn.getAttribute("data-month-key");
+            }
+            renderMonthNav();
+            renderTables();
+            return;
+          }
           if (e.target.closest("[data-clear-filter]")) {
             e.preventDefault();
             setFilterLabel(null);
