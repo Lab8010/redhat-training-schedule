@@ -7,7 +7,7 @@ Red Hat が提供する技術トレーニングの予定を、**CSV** または 
 | パス | 内容 |
 |------|------|
 | [`docs/data.csv`](docs/data.csv) | クラス予定などの表形式データ（CSV） |
-| [`docs/index.html`](docs/index.html) | 上記 CSV を読み込んで表示する静的ページ（HTML） |
+| [`docs/index.html`](https://lab8010.github.io/redhat-training-schedule/) | 上記 CSV を読み込んで表示する静的ページ（HTML） |
 
 ## 更新について
 
