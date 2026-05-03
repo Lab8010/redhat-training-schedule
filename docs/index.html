@@ -121,25 +121,6 @@
       .intro-block ul.intro-links strong {
         color: var(--rh-text);
       }
-      .legend {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 0.5rem 0.75rem;
-        margin-bottom: 1.5rem;
-        padding: 0.75rem 1rem;
-        background: var(--rh-card);
-        border: 1px solid var(--rh-border);
-        border-radius: 8px;
-      }
-      .legend > strong {
-        color: var(--rh-muted);
-      }
-      .legend span {
-        font-size: 0.8rem;
-        padding: 0.2rem 0.55rem;
-        border-radius: 999px;
-        font-weight: 600;
-      }
       .month-block {
         margin-bottom: 2rem;
       }
@@ -268,76 +249,6 @@
         --badge-bg: #f3e8ff;
         --badge-fg: #6b21a8;
       }
-      .legend .chip[data-slug="cancelled"] {
-        background: #e5e5e5;
-        color: #404040;
-      }
-      .legend .chip[data-slug="delivered"] {
-        background: #dcfce7;
-        color: #166534;
-      }
-      .legend .chip[data-slug="scheduled"] {
-        background: #dbeafe;
-        color: #1e3a8a;
-      }
-      .legend .chip[data-slug="guaranteed-to-run"] {
-        background: #fef3c7;
-        color: #92400e;
-      }
-      .legend .chip[data-slug="other"] {
-        background: #f3e8ff;
-        color: #6b21a8;
-      }
-      .legend .chip,
-      td .chip {
-        cursor: pointer;
-        border: 2px solid transparent;
-        font: inherit;
-      }
-      button.chip {
-        font: inherit;
-        border: 2px solid transparent;
-        margin: 0;
-        appearance: none;
-        -webkit-appearance: none;
-      }
-      .legend .chip:hover,
-      td .chip:hover,
-      button.chip:hover {
-        filter: brightness(1.08);
-      }
-      .legend .chip.is-active,
-      td .chip.is-active,
-      button.chip.is-active {
-        border-color: var(--rh-red);
-        box-shadow: 0 0 0 1px var(--rh-white);
-      }
-      .filter-bar {
-        display: flex;
-        flex-wrap: wrap;
-        align-items: center;
-        gap: 0.5rem 0.75rem;
-        margin: -0.5rem 0 1.25rem;
-        font-size: 0.875rem;
-        color: var(--rh-muted);
-      }
-      .filter-bar strong {
-        color: var(--rh-text);
-      }
-      .filter-bar .clear-btn {
-        cursor: pointer;
-        padding: 0.25rem 0.6rem;
-        border-radius: 6px;
-        border: 1px solid var(--rh-black);
-        background: var(--rh-white);
-        color: var(--rh-text);
-        font-size: 0.8rem;
-      }
-      .filter-bar .clear-btn:hover {
-        background: var(--rh-hero-bg);
-        border-color: var(--rh-red);
-        color: var(--rh-red);
-      }
       .empty-filter {
         padding: 1rem;
         color: var(--muted);
@@ -420,8 +331,6 @@
     <main class="rh-main" id="main-content">
       <div class="rh-page-inner">
         <nav id="month-nav" class="month-nav" hidden aria-label="表示月の切り替え"></nav>
-        <div id="legend" class="legend" hidden></div>
-        <p id="filter-bar" class="filter-bar" hidden></p>
         <div id="app">読み込み中…</div>
       </div>
     </main>
@@ -431,11 +340,9 @@
         var CERTIFICATIONS_JSON_URL =
           "https://raw.githubusercontent.com/Lab8010/redhat-certifications-api/main/docs/data/certifications.json";
 
-        /** @type {{ data: Array, seenStatus: string[], filterLabel: string|null, selectedMonthKey: string|null, certTrainingUrlByCourse: Object.<string, string>|null }} */
+        /** @type {{ data: Array, selectedMonthKey: string|null, certTrainingUrlByCourse: Object.<string, string>|null }} */
         var state = {
           data: [],
-          seenStatus: [],
-          filterLabel: null,
           /** @type {string|null} YYYY-MM で 1 ヶ月だけ表示。null はすべて */
           selectedMonthKey: null,
           /**
@@ -794,39 +701,6 @@
           );
         }
 
-        function attrEncode(s) {
-          return encodeURIComponent(String(s));
-        }
-
-        function attrDecode(s) {
-          try {
-            return decodeURIComponent(String(s));
-          } catch (e) {
-            return "";
-          }
-        }
-
-        function setFilterLabel(label) {
-          state.filterLabel = label || null;
-          renderTables();
-          renderLegendChips();
-          renderFilterBar();
-        }
-
-        function renderFilterBar() {
-          var bar = document.getElementById("filter-bar");
-          if (!state.filterLabel) {
-            bar.hidden = true;
-            bar.innerHTML = "";
-            return;
-          }
-          bar.hidden = false;
-          bar.innerHTML =
-            "表示中: <strong>" +
-            escapeHtml(state.filterLabel) +
-            '</strong> <button type="button" class="clear-btn" data-clear-filter="1">すべて表示</button>';
-        }
-
         function renderMonthNav() {
           var nav = document.getElementById("month-nav");
           var keys = [];
@@ -865,44 +739,12 @@
           nav.innerHTML = html;
         }
 
-        function renderLegendChips() {
-          var legendEl = document.getElementById("legend");
-          legendEl.hidden = false;
-          legendEl.innerHTML =
-            '<strong style="color:#5c5c5c;font-size:.8rem">Class Status（クリックで絞り込み）:</strong> ' +
-            state.seenStatus
-              .map(function (st) {
-                var slug = knownStatusRowAttr(statusSlug(st));
-                var active =
-                  state.filterLabel != null && state.filterLabel === st
-                    ? " is-active"
-                    : "";
-                return (
-                  '<button type="button" class="badge chip' +
-                  active +
-                  '" data-slug="' +
-                  slug +
-                  '" data-st="' +
-                  attrEncode(st) +
-                  '">' +
-                  escapeHtml(st) +
-                  "</button>"
-                );
-              })
-              .join(" ");
-        }
-
         function renderTables() {
           var data = state.data;
           if (state.selectedMonthKey != null) {
             data = data.filter(function (it) {
               var mk = monthKeyForItem(it) || "unknown";
               return mk === state.selectedMonthKey;
-            });
-          }
-          if (state.filterLabel != null) {
-            data = data.filter(function (it) {
-              return it.status === state.filterLabel;
             });
           }
 
@@ -935,10 +777,6 @@
             for (var k = 0; k < list.length; k++) {
               var it = list[k];
               var slug = knownStatusRowAttr(statusSlug(it.status));
-              var chipActive =
-                state.filterLabel != null && state.filterLabel === it.status
-                  ? " is-active"
-                  : "";
               html += '<tr data-status="' + slug + '">';
               html += "<td class=period>" + escapeHtml(it.start || "");
               html += " <small>" + escapeHtml(it.startT || "") + "</small>";
@@ -947,15 +785,7 @@
               html += skuTdHtml(it.sku);
               html += '<td class="name">' + escapeHtml(it.name || "") + "</td>";
               html +=
-                '<td><button type="button" class="badge chip' +
-                chipActive +
-                '" data-slug="' +
-                slug +
-                '" data-st="' +
-                attrEncode(it.status || "") +
-                '">' +
-                escapeHtml(it.status || "") +
-                "</button></td>";
+                '<td><span class="badge">' + escapeHtml(it.status || "") + "</span></td>";
               html += offeringIdTdHtml(it.oid);
               html += "</tr>";
             }
@@ -1008,26 +838,12 @@
 
           if (data.length === 0) {
             state.data = [];
-            state.seenStatus = [];
-            state.filterLabel = null;
             state.selectedMonthKey = null;
             document.getElementById("month-nav").hidden = true;
             document.getElementById("month-nav").innerHTML = "";
-            document.getElementById("legend").hidden = true;
-            document.getElementById("filter-bar").hidden = true;
             document.getElementById("app").innerHTML =
               '<p class="empty-filter">本日以降に終了予定のクラスがありません（掲載はすべて過去の終了済みです）。</p>';
             return;
-          }
-
-          var seenStatus = [];
-          var statusSet = {};
-          for (var u = 0; u < data.length; u++) {
-            var st2 = data[u].status;
-            if (st2 && !statusSet[st2]) {
-              statusSet[st2] = true;
-              seenStatus.push(st2);
-            }
           }
 
           var monthSet = {};
@@ -1039,11 +855,7 @@
           }
 
           state.data = data;
-          state.seenStatus = seenStatus;
-          state.filterLabel = null;
           renderMonthNav();
-          renderLegendChips();
-          renderFilterBar();
           renderTables();
         }
 
@@ -1059,22 +871,6 @@
             renderMonthNav();
             renderTables();
             return;
-          }
-          if (e.target.closest("[data-clear-filter]")) {
-            e.preventDefault();
-            setFilterLabel(null);
-            return;
-          }
-          var chip = e.target.closest("[data-st]");
-          if (!chip || !chip.hasAttribute("data-st")) {
-            return;
-          }
-          e.preventDefault();
-          var label = attrDecode(chip.getAttribute("data-st"));
-          if (state.filterLabel === label) {
-            setFilterLabel(null);
-          } else {
-            setFilterLabel(label);
           }
         });
 
