@@ -4,44 +4,104 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Red Hat トレーニングスケジュール</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Red+Hat+Text:ital,wght@0,400;0,600;0,700;1,400&display=swap"
+      rel="stylesheet"
+    />
     <style>
       :root {
-        --bg: #0f172a;
-        --card: #1e293b;
-        --text: #e2e8f0;
-        --muted: #94a3b8;
-        --border: #334155;
+        --rh-red: #ee0000;
+        --rh-black: #000000;
+        --rh-white: #ffffff;
+        --rh-hero-bg: #f0f0f0;
+        --rh-text: #151515;
+        --rh-muted: #5c5c5c;
+        --rh-border: #d2d2d2;
+        --rh-card: #ffffff;
+        --rh-table-head: #e8e8e8;
+        --rh-link: #0066cc;
+        --rh-link-hover: #004080;
+        --bg: var(--rh-white);
+        --card: var(--rh-card);
+        --text: var(--rh-text);
+        --muted: var(--rh-muted);
+        --border: var(--rh-border);
       }
       * {
         box-sizing: border-box;
       }
       body {
         margin: 0;
-        font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Hiragino Sans",
-          "Noto Sans JP", sans-serif;
-        background: var(--bg);
-        color: var(--text);
+        font-family: "Red Hat Text", "Noto Sans JP", system-ui, -apple-system, "Segoe UI",
+          Roboto, "Hiragino Sans", sans-serif;
+        background: var(--rh-white);
+        color: var(--rh-text);
         line-height: 1.5;
-        padding: 1rem 1.25rem 2.5rem;
+      }
+      .rh-header {
+        background: var(--rh-black);
+        color: var(--rh-white);
+        padding: 0.65rem 1.25rem;
+        border-bottom: 3px solid var(--rh-red);
+      }
+      .rh-header-inner {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        gap: 0.35rem;
+        font-size: 0.95rem;
+        font-weight: 600;
+      }
+      .rh-wordmark .rh-red {
+        color: var(--rh-red);
+      }
+      .rh-wordmark .rh-hat {
+        color: var(--rh-white);
+      }
+      .rh-header-sep {
+        opacity: 0.55;
+        font-weight: 400;
+        margin: 0 0.1rem;
+      }
+      .rh-hero {
+        background: var(--rh-hero-bg);
+        padding: 1.25rem 1.25rem 1.35rem;
+        border-bottom: 1px solid var(--rh-border);
+      }
+      .rh-page-inner {
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+      .rh-main {
+        background: var(--rh-white);
+        padding: 1.25rem 1.25rem 2.5rem;
       }
       .schedule-updated {
         font-size: 0.8rem;
-        color: var(--muted);
+        color: var(--rh-muted);
         margin: 0.2rem 0 0.55rem;
         font-variant-numeric: tabular-nums;
       }
       h1 {
-        font-size: 1.35rem;
-        font-weight: 650;
+        font-size: 1.5rem;
+        font-weight: 700;
         margin: 0 0 0.35rem;
+        color: var(--rh-black);
+        letter-spacing: -0.02em;
       }
       .intro-block {
         margin-bottom: 1.25rem;
       }
       .intro-block .sub {
-        color: var(--muted);
+        color: var(--rh-muted);
         font-size: 0.875rem;
         margin: 0 0 0.55rem;
+      }
+      .intro-block .sub strong {
+        color: var(--rh-text);
       }
       .intro-block .sub:last-child {
         margin-bottom: 0;
@@ -52,9 +112,12 @@
         gap: 0.5rem 0.75rem;
         margin-bottom: 1.5rem;
         padding: 0.75rem 1rem;
-        background: var(--card);
-        border: 1px solid var(--border);
-        border-radius: 10px;
+        background: var(--rh-card);
+        border: 1px solid var(--rh-border);
+        border-radius: 8px;
+      }
+      .legend > strong {
+        color: var(--rh-muted);
       }
       .legend span {
         font-size: 0.8rem;
@@ -70,13 +133,14 @@
         margin: 0 0 0.65rem;
         padding-bottom: 0.35rem;
         border-bottom: 1px solid var(--border);
-        color: #f8fafc;
+        color: var(--rh-black);
       }
       .wrap {
         overflow-x: auto;
         border: 1px solid var(--border);
-        border-radius: 10px;
-        background: var(--card);
+        border-radius: 8px;
+        background: var(--rh-card);
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
       }
       table {
         width: 100%;
@@ -92,10 +156,11 @@
         border-bottom: 1px solid var(--border);
       }
       th {
-        background: #0c1222;
-        color: var(--muted);
+        background: var(--rh-table-head);
+        color: var(--rh-text);
         font-weight: 600;
         white-space: nowrap;
+        border-bottom: 1px solid var(--rh-border);
       }
       tr:last-child td {
         border-bottom: none;
@@ -105,35 +170,35 @@
       }
       td.period {
         white-space: nowrap;
-        color: #cbd5e1;
+        color: var(--rh-text);
         font-variant-numeric: tabular-nums;
       }
       td.period small {
         display: block;
-        color: var(--muted);
+        color: var(--rh-muted);
         font-size: 0.75rem;
       }
       td.name {
         max-width: 28rem;
       }
       a.oid-link {
-        color: #7dd3fc;
+        color: var(--rh-link);
         text-decoration: underline;
         text-underline-offset: 2px;
         font-variant-numeric: tabular-nums;
       }
       a.oid-link:hover {
-        color: #bae6fd;
+        color: var(--rh-red);
       }
       a.sku-link {
-        color: #93c5fd;
+        color: var(--rh-link);
         text-decoration: underline;
         text-underline-offset: 2px;
         font-weight: 600;
         font-variant-numeric: tabular-nums;
       }
       a.sku-link:hover {
-        color: #bfdbfe;
+        color: var(--rh-red);
       }
       .badge {
         display: inline-block;
@@ -146,66 +211,67 @@
         color: var(--badge-fg);
       }
       .err {
-        color: #fca5a5;
+        color: #7f1d1d;
         padding: 1rem;
-        background: #450a0a;
+        background: #fef2f2;
+        border: 1px solid #fecaca;
         border-radius: 8px;
       }
-      /* Class Status → 色（必要に応じて data.csv の値に合わせて追加） */
+      /* Class Status → 色（ライト UI 向け） */
       tr[data-status="cancelled"] {
-        --status-accent: #64748b;
+        --status-accent: #737373;
       }
       tr[data-status="cancelled"] .badge {
-        --badge-bg: #334155;
-        --badge-fg: #e2e8f0;
+        --badge-bg: #e5e5e5;
+        --badge-fg: #404040;
       }
       tr[data-status="delivered"] {
-        --status-accent: #22c55e;
+        --status-accent: #16a34a;
       }
       tr[data-status="delivered"] .badge {
-        --badge-bg: #14532d;
-        --badge-fg: #bbf7d0;
+        --badge-bg: #dcfce7;
+        --badge-fg: #166534;
       }
       tr[data-status="scheduled"] {
-        --status-accent: #3b82f6;
+        --status-accent: #2563eb;
       }
       tr[data-status="scheduled"] .badge {
-        --badge-bg: #1e3a8a;
-        --badge-fg: #bfdbfe;
+        --badge-bg: #dbeafe;
+        --badge-fg: #1e3a8a;
       }
       tr[data-status="guaranteed-to-run"] {
-        --status-accent: #f59e0b;
+        --status-accent: #d97706;
       }
       tr[data-status="guaranteed-to-run"] .badge {
-        --badge-bg: #78350f;
-        --badge-fg: #fde68a;
+        --badge-bg: #fef3c7;
+        --badge-fg: #92400e;
       }
       tr[data-status="other"] {
-        --status-accent: #a855f7;
+        --status-accent: #9333ea;
       }
       tr[data-status="other"] .badge {
-        --badge-bg: #581c87;
-        --badge-fg: #e9d5ff;
+        --badge-bg: #f3e8ff;
+        --badge-fg: #6b21a8;
       }
       .legend .chip[data-slug="cancelled"] {
-        background: #334155;
-        color: #e2e8f0;
+        background: #e5e5e5;
+        color: #404040;
       }
       .legend .chip[data-slug="delivered"] {
-        background: #14532d;
-        color: #bbf7d0;
+        background: #dcfce7;
+        color: #166534;
       }
       .legend .chip[data-slug="scheduled"] {
-        background: #1e3a8a;
-        color: #bfdbfe;
+        background: #dbeafe;
+        color: #1e3a8a;
       }
       .legend .chip[data-slug="guaranteed-to-run"] {
-        background: #78350f;
-        color: #fde68a;
+        background: #fef3c7;
+        color: #92400e;
       }
       .legend .chip[data-slug="other"] {
-        background: #581c87;
-        color: #e9d5ff;
+        background: #f3e8ff;
+        color: #6b21a8;
       }
       .legend .chip,
       td .chip {
@@ -228,8 +294,8 @@
       .legend .chip.is-active,
       td .chip.is-active,
       button.chip.is-active {
-        border-color: #f8fafc;
-        box-shadow: 0 0 0 1px #0f172a;
+        border-color: var(--rh-red);
+        box-shadow: 0 0 0 1px var(--rh-white);
       }
       .filter-bar {
         display: flex;
@@ -238,22 +304,24 @@
         gap: 0.5rem 0.75rem;
         margin: -0.5rem 0 1.25rem;
         font-size: 0.875rem;
-        color: var(--muted);
+        color: var(--rh-muted);
       }
       .filter-bar strong {
-        color: #f8fafc;
+        color: var(--rh-text);
       }
       .filter-bar .clear-btn {
         cursor: pointer;
         padding: 0.25rem 0.6rem;
         border-radius: 6px;
-        border: 1px solid var(--border);
-        background: #334155;
-        color: #e2e8f0;
+        border: 1px solid var(--rh-black);
+        background: var(--rh-white);
+        color: var(--rh-text);
         font-size: 0.8rem;
       }
       .filter-bar .clear-btn:hover {
-        background: #475569;
+        background: var(--rh-hero-bg);
+        border-color: var(--rh-red);
+        color: var(--rh-red);
       }
       .empty-filter {
         padding: 1rem;
@@ -267,59 +335,78 @@
         gap: 0.45rem 0.5rem;
         margin-bottom: 1.25rem;
         padding: 0.65rem 0.85rem;
-        background: var(--card);
-        border: 1px solid var(--border);
-        border-radius: 10px;
+        background: var(--rh-card);
+        border: 1px solid var(--rh-border);
+        border-radius: 8px;
       }
       .month-nav .label {
         font-size: 0.8rem;
-        color: var(--muted);
+        color: var(--rh-muted);
         margin-right: 0.15rem;
       }
       .month-nav button.nav-month {
         cursor: pointer;
         padding: 0.3rem 0.65rem;
         border-radius: 999px;
-        border: 1px solid var(--border);
-        background: #1e293b;
-        color: var(--text);
+        border: 1px solid var(--rh-border);
+        background: var(--rh-white);
+        color: var(--rh-text);
         font-size: 0.8rem;
         font: inherit;
       }
       .month-nav button.nav-month:hover {
-        filter: brightness(1.08);
+        border-color: var(--rh-red);
+        color: var(--rh-red);
       }
       .month-nav button.nav-month.is-active {
-        border-color: #f8fafc;
-        box-shadow: 0 0 0 1px #0f172a;
+        border-color: var(--rh-red);
+        color: var(--rh-red);
+        box-shadow: none;
         font-weight: 650;
       }
     </style>
   </head>
   <body>
-    <h1>Red Hat トレーニングスケジュール</h1>
-    <p id="schedule-updated" class="schedule-updated" aria-live="polite" hidden></p>
-    <div class="intro-block">
-    <p class="sub">
-      このサイトでは、Red Hat が提供する予定の公式トレーニングの予定を始めとする情報を掲示しています。更新頻度は毎日午前です。
-    </p>
-    <p class="sub">
-      <strong>SKU</strong>のリンクをクリックすると、そのトレーニングコースの概要リンクにアクセスが出来ます。
-    </p>
-    <p class="sub">
-      <strong>Offering ID</strong>のリンクをクリックすると、そのトレーニングセッションの申し込みのためのリンクに移動します。
-    </p>
-    <p class="sub">
-      なお、2026年1月より Red Hat ではトレーニングの販売形式が年間サブスクリプション形式である「Red Hat Learning Subscription」というサービスに変更しました。
-    </p>
-    <p class="sub">
-      上記のリンクより1年間有効な学習サブスクリプションを購入後、1年間の間に任意の受講回でのトレーニング受講を頂きます。
-    </p>
+    <header class="rh-header" role="banner">
+      <div class="rh-header-inner">
+        <span class="rh-wordmark"
+          ><span class="rh-red">Red</span><span class="rh-hat"> Hat</span></span
+        >
+        <span class="rh-header-sep" aria-hidden="true">|</span>
+        <span>トレーニングスケジュール</span>
+      </div>
+    </header>
+    <div class="rh-hero">
+      <div class="rh-page-inner">
+        <h1>Red Hat トレーニングスケジュール</h1>
+        <p id="schedule-updated" class="schedule-updated" aria-live="polite" hidden></p>
+        <div class="intro-block">
+          <p class="sub">
+            このサイトでは、Red Hat が提供する予定の公式トレーニングの予定を始めとする情報を掲示しています。更新頻度は毎日午前です。
+          </p>
+          <p class="sub">
+            <strong>SKU</strong>のリンクをクリックすると、そのトレーニングコースの概要リンクにアクセスが出来ます。
+          </p>
+          <p class="sub">
+            <strong>Offering ID</strong>のリンクをクリックすると、そのトレーニングセッションの申し込みのためのリンクに移動します。
+          </p>
+          <p class="sub">
+            なお、2026年1月より Red Hat ではトレーニングの販売形式が年間サブスクリプション形式である「Red Hat Learning Subscription」というサービスに変更しました。
+          </p>
+          <p class="sub">
+            上記のリンクより1年間有効な学習サブスクリプションを購入後、1年間の間に任意の受講回でのトレーニング受講を頂きます。
+          </p>
+        </div>
+      </div>
     </div>
-    <nav id="month-nav" class="month-nav" hidden aria-label="表示月の切り替え"></nav>
-    <div id="legend" class="legend" hidden></div>
-    <p id="filter-bar" class="filter-bar" hidden></p>
-    <div id="app">読み込み中…</div>
+    <main class="rh-main" id="main-content">
+      <div class="rh-page-inner">
+        <nav id="month-nav" class="month-nav" hidden aria-label="表示月の切り替え"></nav>
+        <div id="legend" class="legend" hidden></div>
+        <p id="filter-bar" class="filter-bar" hidden></p>
+        <div id="app">読み込み中…</div>
+      </div>
+    </main>
     <script>
       (function () {
         var CSV_URL = "data.csv";
@@ -763,7 +850,7 @@
           var legendEl = document.getElementById("legend");
           legendEl.hidden = false;
           legendEl.innerHTML =
-            '<strong style="color:#94a3b8;font-size:.8rem">Class Status（クリックで絞り込み）:</strong> ' +
+            '<strong style="color:#5c5c5c;font-size:.8rem">Class Status（クリックで絞り込み）:</strong> ' +
             state.seenStatus
               .map(function (st) {
                 var slug = knownStatusRowAttr(statusSlug(st));
