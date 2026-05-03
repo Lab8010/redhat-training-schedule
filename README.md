@@ -25,6 +25,11 @@ Red Hat が提供する技術トレーニングの予定を、**CSV** または 
 
 - [Red Hat トレーニングポリシー（日本語）](https://www.redhat.com/ja/about/red-hat-training-policies)
 
+## このサイトについて
+
+- 公開・管理は **Lab8010** が行っています。Red Hat の公式サイトではなく、Red Hat 認定インストラクターによるボランティア運用です。
+- `docs/data.csv` は各自のサイトへの掲載などに活用できます。条件はリポジトリルートの [**MIT License**](LICENSE) に従ってください。
+
 ## GitHub Pages で見る場合
 
 リポジトリの **Settings → Pages** でソースを **`/docs`**（ブランチは通常 `main`）に設定すると、次のような URL で HTML 版を公開できます（実際のユーザー名・リポジトリ名に読み替えてください）。
