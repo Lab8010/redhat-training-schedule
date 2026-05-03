@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Class Outlook スケジュール</title>
+    <title>Red Hat トレーニングスケジュール</title>
     <style>
       :root {
         --bg: #0f172a;
@@ -29,10 +29,16 @@
         font-weight: 650;
         margin: 0 0 0.35rem;
       }
-      .sub {
+      .intro-block {
+        margin-bottom: 1.25rem;
+      }
+      .intro-block .sub {
         color: var(--muted);
         font-size: 0.875rem;
-        margin-bottom: 1.25rem;
+        margin: 0 0 0.55rem;
+      }
+      .intro-block .sub:last-child {
+        margin-bottom: 0;
       }
       .legend {
         display: flex;
@@ -285,18 +291,24 @@
     </style>
   </head>
   <body>
-    <h1>Class Outlook スケジュール</h1>
+    <h1>Red Hat トレーニングスケジュール</h1>
+    <div class="intro-block">
     <p class="sub">
-      同じフォルダの <code>data.csv</code> を読み込みます。
-      <strong>Class Status</strong>（凡例または表のバッジ）をクリックすると、そのステータスだけ表示します。
-      <strong>SKU</strong>は <code>training_course</code> と一致する場合
-      <a href="https://github.com/Lab8010/redhat-certifications-api/blob/main/docs/data/certifications.json" target="_blank" rel="noopener noreferrer">certifications.json</a>
-      の <code>training_url_ja</code> へリンクします（<strong>EX294</strong> は試験のため JSON 照合から除外し固定 URL）。
-      一致しない場合は手元フォールバックまたは Google の site 検索です。<strong>Offering ID</strong>は LMS のキーワード検索へリンクします。
-      GitHub Pages では <strong>Settings → Pages</strong> でソースを <code>/docs</code> にすると
-      リポジトリのサイト直下（<code>/</code>）から公開されます。
-      終了日が本日より前のクラスは表示しません。複数月に予定があるときは下のボタンで月を切り替えられます。
+      このサイトでは、Red Hat が提供する予定の公式トレーニングの予定を始めとする情報を掲示しています。更新頻度は毎日午前です。
     </p>
+    <p class="sub">
+      <strong>SKU</strong>のリンクをクリックすると、そのトレーニングコースの概要リンクにアクセスが出来ます。
+    </p>
+    <p class="sub">
+      <strong>Offering ID</strong>のリンクをクリックすると、そのトレーニングセッションの申し込みのためのリンクに移動します。
+    </p>
+    <p class="sub">
+      なお、2026年1月より Red Hat ではトレーニングの販売形式が年間サブスクリプション形式である「Red Hat Learning Subscription」というサービスに変更しました。
+    </p>
+    <p class="sub">
+      上記のリンクより1年間有効な学習サブスクリプションを購入後、1年間の間に任意の受講回でのトレーニング受講を頂きます。
+    </p>
+    </div>
     <nav id="month-nav" class="month-nav" hidden aria-label="表示月の切り替え"></nav>
     <div id="legend" class="legend" hidden></div>
     <p id="filter-bar" class="filter-bar" hidden></p>
