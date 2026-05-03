@@ -104,6 +104,15 @@
       td.name {
         max-width: 28rem;
       }
+      a.oid-link {
+        color: #7dd3fc;
+        text-decoration: underline;
+        text-underline-offset: 2px;
+        font-variant-numeric: tabular-nums;
+      }
+      a.oid-link:hover {
+        color: #bae6fd;
+      }
       .badge {
         display: inline-block;
         padding: 0.15rem 0.45rem;
@@ -442,6 +451,33 @@
             .replace(/"/g, "&quot;");
         }
 
+        /** Red Hat LMS で Offering ID をキーワード検索する URL */
+        function lmsOfferingSearchUrl(oid) {
+          var id = String(oid || "").trim();
+          if (!id) {
+            return "";
+          }
+          return (
+            "https://training-lms.redhat.com/lmt/clmsBrowseV2.prMain?site=redhat&in_region=jp&in_lang=ja&in_keyword=" +
+            encodeURIComponent(id)
+          );
+        }
+
+        function offeringIdTdHtml(oid) {
+          var id = String(oid || "").trim();
+          if (!id) {
+            return "<td></td>";
+          }
+          var url = lmsOfferingSearchUrl(id);
+          return (
+            '<td><a class="oid-link" href="' +
+            escapeHtml(url) +
+            '" target="_blank" rel="noopener noreferrer" title="Red Hat LMS でこの Offering ID を検索">' +
+            escapeHtml(id) +
+            "</a></td>"
+          );
+        }
+
         function attrEncode(s) {
           return encodeURIComponent(String(s));
         }
@@ -604,7 +640,7 @@
                 '">' +
                 escapeHtml(it.status || "") +
                 "</button></td>";
-              html += "<td>" + escapeHtml(it.oid || "") + "</td>";
+              html += offeringIdTdHtml(it.oid);
               html += "</tr>";
             }
             html += "</tbody></table></div></section>";
