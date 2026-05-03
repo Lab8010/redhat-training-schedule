@@ -289,7 +289,10 @@
     <p class="sub">
       同じフォルダの <code>data.csv</code> を読み込みます。
       <strong>Class Status</strong>（凡例または表のバッジ）をクリックすると、そのステータスだけ表示します。
-      <strong>SKU</strong>は Red Hat のコース概要（日本語）へ、<strong>Offering ID</strong>は LMS のキーワード検索へリンクします（SKU が未登録のときは Google の site 検索に飛びます）。
+      <strong>SKU</strong>は <code>training_course</code> と一致する場合
+      <a href="https://github.com/Lab8010/redhat-certifications-api/blob/main/docs/data/certifications.json" target="_blank" rel="noopener noreferrer">certifications.json</a>
+      の <code>training_url_ja</code> へリンクします（<strong>EX294</strong> は試験のため JSON 照合から除外し固定 URL）。
+      一致しない場合は手元フォールバックまたは Google の site 検索です。<strong>Offering ID</strong>は LMS のキーワード検索へリンクします。
       GitHub Pages では <strong>Settings → Pages</strong> でソースを <code>/docs</code> にすると
       リポジトリのサイト直下（<code>/</code>）から公開されます。
       終了日が本日より前のクラスは表示しません。複数月に予定があるときは下のボタンで月を切り替えられます。
@@ -301,13 +304,21 @@
     <script>
       (function () {
         var CSV_URL = "data.csv";
-        /** @type {{ data: Array, seenStatus: string[], filterLabel: string|null }} */
+        var CERTIFICATIONS_JSON_URL =
+          "https://raw.githubusercontent.com/Lab8010/redhat-certifications-api/main/docs/data/certifications.json";
+
+        /** @type {{ data: Array, seenStatus: string[], filterLabel: string|null, selectedMonthKey: string|null, certTrainingUrlByCourse: Object.<string, string>|null }} */
         var state = {
           data: [],
           seenStatus: [],
           filterLabel: null,
           /** @type {string|null} YYYY-MM で 1 ヶ月だけ表示。null はすべて */
           selectedMonthKey: null,
+          /**
+           * certifications.json 由来: training_course（大文字）→ training_url_ja。
+           * null は未ロード、{} はロード失敗または空。
+           */
+          certTrainingUrlByCourse: null,
         };
 
         function parseCSVLine(line) {
@@ -502,34 +513,84 @@
         }
 
         /**
-         * SKU（正規化後のコースコード）→ redhat.com/ja/services/training/ のパス部分。
-         * 新しいコースが CSV に増えたらここに追記してください。
+         * certifications.json に無いコースのみパスを保持（パス部分）。
+         * EX294 は試験のため JSON の training_course 照合から除外し、下の固定 URL を使用。
          */
-        var REDHAT_JA_TRAINING_PATH = {
-          AU294: "au294-red-hat-linux-automation-with-ansible",
+        var REDHAT_JA_FALLBACK_PATH = {
           CL170: "cl170-openstack-administration-control-plane-management",
-          DO180: "red-hat-openshift-administration-i-operating-a-production-cluster",
-          DO188: "do188-red-hat-open-shift-development-introduction-containers-with-podman",
-          DO280: "red-hat-openshift-administration-ii-configuring-a-production-cluster",
-          DO288: "red-hat-openshift-developer-ii-building-and-deploying-cloud-native-applications",
           DO316: "do316-managing-virtual-machines-red-hat-openshift-virtualization",
-          DO380: "do380-red-hat-openshift-administration-iii-scaling-deployments-in-the-enterprise",
-          EX294: "ex294-red-hat-certified-engineer-rhce-exam-red-hat-enterprise-linux-9",
           RH124: "rh124-red-hat-system-administration-i",
           RH134: "rh134-red-hat-system-administration-ii",
-          RH199: "rh199-red-hat-certified-system-administrator-rapid-track-course",
         };
 
         var REDHAT_JA_TRAINING_PREFIX =
           "https://www.redhat.com/ja/services/training/";
 
-        /** 公式コースページ URL。未マップ時は redhat.com 内を対象にした Google 検索 URL */
+        /** EX294: JSON では training_course が AU294 のため照合除外し、試験ページ URL を固定 */
+        var EX294_JA_URL =
+          "https://www.redhat.com/ja/services/training/ex294-red-hat-certified-engineer-rhce-exam-red-hat-enterprise-linux-9";
+
+        function loadCertificationsTrainingUrls() {
+          return fetch(CERTIFICATIONS_JSON_URL, { credentials: "omit" })
+            .then(function (res) {
+              if (!res.ok) {
+                throw new Error(res.status + " " + res.statusText);
+              }
+              return res.json();
+            })
+            .then(function (arr) {
+              var map = {};
+              if (!Array.isArray(arr)) {
+                return map;
+              }
+              for (var i = 0; i < arr.length; i++) {
+                var row = arr[i];
+                if (!row || typeof row !== "object") {
+                  continue;
+                }
+                var code = row.training_course;
+                var u = row.training_url_ja;
+                if (!code || typeof u !== "string" || !u.trim()) {
+                  continue;
+                }
+                var key = String(code).trim().toUpperCase();
+                if (!key || map[key]) {
+                  continue;
+                }
+                map[key] = u.trim();
+              }
+              if (typeof console !== "undefined" && console.info) {
+                console.info(
+                  "[schedule] certifications.json: " +
+                    Object.keys(map).length +
+                    " training_course → training_url_ja"
+                );
+              }
+              return map;
+            })
+            .catch(function () {
+              if (typeof console !== "undefined" && console.warn) {
+                console.warn(
+                  "[schedule] certifications.json を読めませんでした。フォールバックのみ使用します。"
+                );
+              }
+              return {};
+            });
+        }
+
+        /** 公式コース／試験ページ URL */
         function redHatTrainingCourseUrl(sku) {
           var base = normalizeSkuBaseForTrainingLink(sku);
           if (!base) {
             return "";
           }
-          var path = REDHAT_JA_TRAINING_PATH[base];
+          if (base === "EX294") {
+            return EX294_JA_URL;
+          }
+          if (state.certTrainingUrlByCourse && state.certTrainingUrlByCourse[base]) {
+            return state.certTrainingUrlByCourse[base];
+          }
+          var path = REDHAT_JA_FALLBACK_PATH[base];
           if (path) {
             return REDHAT_JA_TRAINING_PREFIX + path;
           }
@@ -538,6 +599,22 @@
             encodeURIComponent(
               "site:www.redhat.com/ja/services/training " + base
             )
+          );
+        }
+
+        function skuLinkTitle(rawSku) {
+          var baseU = normalizeSkuBaseForTrainingLink(rawSku);
+          if (baseU === "EX294") {
+            return "RHCE 認定試験 EX294（日本語・固定 URL。JSON の training_course とは照合しません）";
+          }
+          if (state.certTrainingUrlByCourse && state.certTrainingUrlByCourse[baseU]) {
+            return "Red Hat のコース概要（certifications.json の training_url_ja）";
+          }
+          if (baseU in REDHAT_JA_FALLBACK_PATH) {
+            return "Red Hat のコース概要（日本語・手元フォールバック）";
+          }
+          return (
+            "Google で redhat.com のトレーニングページを検索（コースコード: " + baseU + "）"
           );
         }
 
@@ -550,18 +627,11 @@
           if (!url) {
             return "<td>" + escapeHtml(raw) + "</td>";
           }
-          var baseU = normalizeSkuBaseForTrainingLink(raw);
-          var isCanonical = baseU in REDHAT_JA_TRAINING_PATH;
-          var title = isCanonical
-            ? "Red Hat のコース概要（日本語公式ページ）"
-            : "Google で redhat.com のトレーニングページを検索（コースコード: " +
-              baseU +
-              "）";
           return (
             '<td><a class="sku-link" href="' +
             escapeHtml(url) +
             '" target="_blank" rel="noopener noreferrer" title="' +
-            escapeHtml(title) +
+            escapeHtml(skuLinkTitle(raw)) +
             '">' +
             escapeHtml(raw) +
             "</a></td>"
@@ -852,15 +922,18 @@
           }
         });
 
-        fetch(CSV_URL)
-          .then(function (res) {
+        Promise.all([
+          loadCertificationsTrainingUrls(),
+          fetch(CSV_URL).then(function (res) {
             if (!res.ok) {
               throw new Error(res.status + " " + res.statusText);
             }
             return res.text();
-          })
-          .then(function (text) {
-            ingestRows(parseCSV(text));
+          }),
+        ])
+          .then(function (pair) {
+            state.certTrainingUrlByCourse = pair[0];
+            ingestRows(parseCSV(pair[1]));
           })
           .catch(function (e) {
             document.getElementById("app").innerHTML =
