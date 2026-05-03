@@ -113,6 +113,16 @@
       a.oid-link:hover {
         color: #bae6fd;
       }
+      a.sku-link {
+        color: #93c5fd;
+        text-decoration: underline;
+        text-underline-offset: 2px;
+        font-weight: 600;
+        font-variant-numeric: tabular-nums;
+      }
+      a.sku-link:hover {
+        color: #bfdbfe;
+      }
       .badge {
         display: inline-block;
         padding: 0.15rem 0.45rem;
@@ -279,6 +289,7 @@
     <p class="sub">
       同じフォルダの <code>data.csv</code> を読み込みます。
       <strong>Class Status</strong>（凡例または表のバッジ）をクリックすると、そのステータスだけ表示します。
+      <strong>SKU</strong>は Red Hat のコース概要（日本語）へ、<strong>Offering ID</strong>は LMS のキーワード検索へリンクします（SKU が未登録のときは Google の site 検索に飛びます）。
       GitHub Pages では <strong>Settings → Pages</strong> でソースを <code>/docs</code> にすると
       リポジトリのサイト直下（<code>/</code>）から公開されます。
       終了日が本日より前のクラスは表示しません。複数月に予定があるときは下のボタンで月を切り替えられます。
@@ -478,6 +489,85 @@
           );
         }
 
+        /** 末尾の VT（バーチャル開催）などを除いたコースコード（大文字） */
+        function normalizeSkuBaseForTrainingLink(sku) {
+          var s = String(sku || "")
+            .trim()
+            .toUpperCase();
+          if (!s) {
+            return "";
+          }
+          s = s.replace(/VT$/i, "");
+          return s;
+        }
+
+        /**
+         * SKU（正規化後のコースコード）→ redhat.com/ja/services/training/ のパス部分。
+         * 新しいコースが CSV に増えたらここに追記してください。
+         */
+        var REDHAT_JA_TRAINING_PATH = {
+          AU294: "au294-red-hat-linux-automation-with-ansible",
+          CL170: "cl170-openstack-administration-control-plane-management",
+          DO180: "red-hat-openshift-administration-i-operating-a-production-cluster",
+          DO188: "do188-red-hat-open-shift-development-introduction-containers-with-podman",
+          DO280: "red-hat-openshift-administration-ii-configuring-a-production-cluster",
+          DO288: "red-hat-openshift-developer-ii-building-and-deploying-cloud-native-applications",
+          DO316: "do316-managing-virtual-machines-red-hat-openshift-virtualization",
+          DO380: "do380-red-hat-openshift-administration-iii-scaling-deployments-in-the-enterprise",
+          EX294: "ex294-red-hat-certified-engineer-rhce-exam-red-hat-enterprise-linux-9",
+          RH124: "rh124-red-hat-system-administration-i",
+          RH134: "rh134-red-hat-system-administration-ii",
+          RH199: "rh199-red-hat-certified-system-administrator-rapid-track-course",
+        };
+
+        var REDHAT_JA_TRAINING_PREFIX =
+          "https://www.redhat.com/ja/services/training/";
+
+        /** 公式コースページ URL。未マップ時は redhat.com 内を対象にした Google 検索 URL */
+        function redHatTrainingCourseUrl(sku) {
+          var base = normalizeSkuBaseForTrainingLink(sku);
+          if (!base) {
+            return "";
+          }
+          var path = REDHAT_JA_TRAINING_PATH[base];
+          if (path) {
+            return REDHAT_JA_TRAINING_PREFIX + path;
+          }
+          return (
+            "https://www.google.com/search?q=" +
+            encodeURIComponent(
+              "site:www.redhat.com/ja/services/training " + base
+            )
+          );
+        }
+
+        function skuTdHtml(sku) {
+          var raw = String(sku || "").trim();
+          if (!raw) {
+            return "<td></td>";
+          }
+          var url = redHatTrainingCourseUrl(raw);
+          if (!url) {
+            return "<td>" + escapeHtml(raw) + "</td>";
+          }
+          var baseU = normalizeSkuBaseForTrainingLink(raw);
+          var isCanonical = baseU in REDHAT_JA_TRAINING_PATH;
+          var title = isCanonical
+            ? "Red Hat のコース概要（日本語公式ページ）"
+            : "Google で redhat.com のトレーニングページを検索（コースコード: " +
+              baseU +
+              "）";
+          return (
+            '<td><a class="sku-link" href="' +
+            escapeHtml(url) +
+            '" target="_blank" rel="noopener noreferrer" title="' +
+            escapeHtml(title) +
+            '">' +
+            escapeHtml(raw) +
+            "</a></td>"
+          );
+        }
+
         function attrEncode(s) {
           return encodeURIComponent(String(s));
         }
@@ -628,7 +718,7 @@
               html += " <small>" + escapeHtml(it.startT || "") + "</small>";
               html += "<br>〜 " + escapeHtml(it.end || "");
               html += " <small>" + escapeHtml(it.endT || "") + "</small></td>";
-              html += "<td>" + escapeHtml(it.sku || "") + "</td>";
+              html += skuTdHtml(it.sku);
               html += '<td class="name">' + escapeHtml(it.name || "") + "</td>";
               html +=
                 '<td><button type="button" class="badge chip' +
