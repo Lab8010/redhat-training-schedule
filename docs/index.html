@@ -49,11 +49,17 @@
       .rh-header-inner {
         max-width: 1200px;
         margin: 0 auto;
+      }
+      .rh-header-h1 {
+        margin: 0;
         display: flex;
+        flex-wrap: wrap;
         align-items: center;
         gap: 0.35rem;
-        font-size: 0.95rem;
+        font-size: 1.125rem;
         font-weight: 600;
+        color: var(--rh-white);
+        line-height: 1.3;
       }
       .rh-wordmark .rh-red {
         color: var(--rh-red);
@@ -80,17 +86,11 @@
         padding: 1.25rem 1.25rem 2.5rem;
       }
       .schedule-updated {
-        font-size: 0.8rem;
-        color: var(--rh-muted);
-        margin: 0.2rem 0 0.55rem;
-        font-variant-numeric: tabular-nums;
-      }
-      h1 {
-        font-size: 1.5rem;
+        font-size: 0.9rem;
         font-weight: 700;
-        margin: 0 0 0.35rem;
-        color: var(--rh-black);
-        letter-spacing: -0.02em;
+        color: var(--rh-text);
+        margin: 0 0 0.65rem;
+        font-variant-numeric: tabular-nums;
       }
       .intro-block {
         margin-bottom: 1.25rem;
@@ -105,6 +105,21 @@
       }
       .intro-block .sub:last-child {
         margin-bottom: 0;
+      }
+      .intro-block ul.intro-links {
+        margin: 0 0 0.55rem 0;
+        padding-left: 1.2rem;
+        color: var(--rh-muted);
+        font-size: 0.875rem;
+      }
+      .intro-block ul.intro-links li {
+        margin-bottom: 0.35rem;
+      }
+      .intro-block ul.intro-links li:last-child {
+        margin-bottom: 0;
+      }
+      .intro-block ul.intro-links strong {
+        color: var(--rh-text);
       }
       .legend {
         display: flex;
@@ -369,27 +384,30 @@
   <body>
     <header class="rh-header" role="banner">
       <div class="rh-header-inner">
-        <span class="rh-wordmark"
-          ><span class="rh-red">Red</span><span class="rh-hat"> Hat</span></span
-        >
-        <span class="rh-header-sep" aria-hidden="true">|</span>
-        <span>トレーニングスケジュール</span>
+        <h1 class="rh-header-h1">
+          <span class="rh-wordmark"
+            ><span class="rh-red">Red</span><span class="rh-hat"> Hat</span></span
+          >
+          <span class="rh-header-sep" aria-hidden="true">|</span>
+          <span>トレーニングスケジュール</span>
+        </h1>
       </div>
     </header>
     <div class="rh-hero">
       <div class="rh-page-inner">
-        <h1>Red Hat トレーニングスケジュール</h1>
         <p id="schedule-updated" class="schedule-updated" aria-live="polite" hidden></p>
         <div class="intro-block">
           <p class="sub">
-            このサイトでは、Red Hat が提供する予定の公式トレーニングの予定を始めとする情報を掲示しています。更新頻度は毎日午前です。
+            このサイトでは、Red Hat が提供する予定の公式トレーニングの予定を始めとする情報を掲示しています。
           </p>
-          <p class="sub">
-            <strong>SKU</strong>のリンクをクリックすると、そのトレーニングコースの概要リンクにアクセスが出来ます。
-          </p>
-          <p class="sub">
-            <strong>Offering ID</strong>のリンクをクリックすると、そのトレーニングセッションの申し込みのためのリンクに移動します。
-          </p>
+          <ul class="intro-links">
+            <li>
+              <strong>SKU</strong>のリンクをクリックすると、そのトレーニングコースの概要ページにアクセスできます。
+            </li>
+            <li>
+              <strong>Offering ID</strong>のリンクをクリックすると、そのトレーニングセッションの申し込み用ページに移動します。
+            </li>
+          </ul>
           <p class="sub">
             なお、2026年1月より Red Hat ではトレーニングの販売形式が年間サブスクリプション形式である「Red Hat Learning Subscription」というサービスに変更しました。
           </p>
@@ -601,12 +619,13 @@
                 hour: "2-digit",
                 minute: "2-digit",
                 timeZoneName: "short",
-              });
+              }) +
+              "（毎日午前に更新）";
             el.hidden = false;
             return;
           }
           el.textContent =
-            "スケジュールデータの更新日時は、配信元の応答からは取得できませんでした。";
+            "スケジュールデータの更新日時は、配信元の応答からは取得できませんでした。（毎日午前に更新）";
           el.hidden = false;
         }
 
