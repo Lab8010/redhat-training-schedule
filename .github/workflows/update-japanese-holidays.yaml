@@ -20,10 +20,18 @@ jobs:
           curl -o holidays_sjis.csv https://www8.cao.go.jp/chosei/shukujitsu/syukujitsu.csv
           
           # Shift_JISからUTF-8に変換
-          iconv -f SHIFT_JIS -t UTF-8 holidays_sjis.csv > docs/holidays.csv
+          iconv -f SHIFT_JIS -t UTF-8 holidays_sjis.csv > holidays_temp.csv
+          
+          # Grafana用にフォーマット変換(列名をトレーニングデータと統一)
+          echo "Start Date,End Date,Class Status,Offering ID,Offering Name,SKU" > docs/holidays.csv
+          tail -n +2 holidays_temp.csv | awk -F',' '{
+            date=$1
+            gsub(/\//,"/",date)
+            print date","date",Holiday,holiday_"NR","$2",HOLIDAY"
+          }' >> docs/holidays.csv
           
           # 不要ファイル削除
-          rm holidays_sjis.csv
+          rm holidays_sjis.csv holidays_temp.csv
       
       - name: Commit changes
         run: |
