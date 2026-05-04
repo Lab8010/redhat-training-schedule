@@ -2,8 +2,8 @@ name: Update Japanese Holidays
 
 on:
   schedule:
-    - cron: '0 0 * * 0'  # 毎週日曜0時(UTC)
-  workflow_dispatch:  # 手動実行も可能
+    - cron: '0 0 * * 0'
+  workflow_dispatch:
 
 jobs:
   update:
@@ -17,7 +17,7 @@ jobs:
           curl -o holidays_sjis.csv https://www8.cao.go.jp/chosei/shukujitsu/syukujitsu.csv
           
           # Shift_JISからUTF-8に変換
-          iconv -f SHIFT_JIS -t UTF-8 holidays_sjis.csv > docs/japanese-holidays.csv
+          iconv -f SHIFT_JIS -t UTF-8 holidays_sjis.csv > docs/holidays.csv
           
           # 不要ファイル削除
           rm holidays_sjis.csv
@@ -27,5 +27,9 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add docs/holidays.csv
-          git diff --quiet && git diff --staged --quiet || git commit -m "Update Japanese holidays from 内閣府"
-          git push
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "Update Japanese holidays from 内閣府"
+            git push
+          fi
