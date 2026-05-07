@@ -3,6 +3,8 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- YouTube 埋め込みは HTTP Referer が必要。153 回避のためドキュメント既定を明示する -->
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
     <title>Red Hat トレーニングスケジュール</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -312,6 +314,35 @@
         box-shadow: none;
         font-weight: 650;
       }
+      .video-embed-block {
+        margin: 1.25rem 0 0;
+      }
+      .video-embed-block .video-embed-title {
+        font-size: 0.95rem;
+        margin: 0 0 0.45rem;
+        font-weight: 600;
+        color: var(--rh-text);
+      }
+      .video-embed-block .sub.video-embed-note {
+        margin: 0 0 0.55rem;
+      }
+      .video-embed-wrap {
+        position: relative;
+        width: 100%;
+        max-width: 720px;
+        aspect-ratio: 16 / 9;
+        border-radius: 8px;
+        overflow: hidden;
+        border: 1px solid var(--rh-border);
+        background: #0a0a0a;
+      }
+      .video-embed-wrap iframe {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        border: 0;
+      }
     </style>
   </head>
   <body>
@@ -355,6 +386,47 @@
           <p class="sub">
             上記のリンクより1年間有効な学習サブスクリプションを購入後、1年間の間に任意の受講回でのトレーニング受講を頂きます。
           </p>
+          <section class="video-embed-block" aria-labelledby="embedded-youtube-title">
+            <h2 id="embedded-youtube-title" class="video-embed-title">参考動画（YouTube）</h2>
+            <p class="sub video-embed-note">
+              以下のプレーヤーからページ内で再生できます（
+              <a
+                href="https://youtu.be/zMKQebsZqj4"
+                target="_blank"
+                rel="noopener noreferrer"
+                >YouTube で開く</a>）。
+            </p>
+            <div class="video-embed-wrap">
+              <iframe
+                id="yt-embed-zMKQebsZqj4"
+                title="YouTube 動画"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerpolicy="strict-origin-when-cross-origin"
+                allowfullscreen
+                loading="lazy"
+              ></iframe>
+            </div>
+            <script>
+              (function () {
+                var el = document.getElementById("yt-embed-zMKQebsZqj4");
+                if (!el) return;
+                var o = window.location.origin;
+                if (!o || o === "null" || /^file:/i.test(o)) o = "";
+                var q = new URLSearchParams();
+                q.set("enablejsapi", "1");
+                q.set("rel", "0");
+                q.set("modestbranding", "1");
+                if (o) q.set("origin", o);
+                el.src = "https://www.youtube.com/embed/zMKQebsZqj4?" + q.toString();
+              })();
+            </script>
+            <noscript>
+              <p class="sub video-embed-note">
+                埋め込み再生には JavaScript が必要です。
+                <a href="https://youtu.be/zMKQebsZqj4" target="_blank" rel="noopener noreferrer">YouTube で開く</a>
+              </p>
+            </noscript>
+          </section>
           <div class="intro-site-meta">
             <p class="sub">
               このページのソースおよび <code>docs/data.csv</code> をはじめとするデータは、次の GitHub レポジトリで公開・管理されています。
@@ -365,8 +437,17 @@
                 >Lab8010/redhat-training-schedule</a>です。
             </p>
             <p class="sub">
-              本ページは <strong>Lab8010</strong> により管理されています。Red Hat の公式サイトではありません。Red Hat
-              認定インストラクターがボランティアで作成・運用しているものです。
+              本ページは
+              <a href="https://x.com/lab8010" target="_blank" rel="noopener noreferrer"><strong>Lab8010</strong></a>(Red Hat所属認定インストラクター) によりボランティアで運営/管理されています。<br />
+              Red Hat の公式サイトではありません。
+            </p>
+            <p class="sub">
+              Red Hat の公式トレーニングまたは認定資格などに関する問い合わせは、以下のサイト内の連絡先にご連絡ください。<br />
+              <a
+                href="https://www.redhat.com/en/services/training-and-certification/contact-us"
+                target="_blank"
+                rel="noopener noreferrer"
+                >https://www.redhat.com/en/services/training-and-certification/contact-us</a>
             </p>
             <p class="sub">
               レポジトリ内の Raw データ（<code>docs/data.csv</code>）は、各自のサイトでの掲載などに活用していただいて構いません。利用条件はレポジトリルートの
