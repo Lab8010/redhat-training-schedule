@@ -404,16 +404,16 @@
           <p class="sub">Red Hat 公式トレーニング（日本向け）の開催予定を一覧で掲載しています。</p>
           <ul class="intro-links">
             <li>
-              <strong>SKU</strong>のリンクをクリックすると、そのトレーニングコースの概要ページにアクセスできます。
+              <strong>コースコード</strong>のリンクをクリックすると、そのトレーニングコースの概要ページにアクセスできます。
             </li>
             <li>
-              <strong>Offering ID</strong>のリンクをクリックすると、そのトレーニングセッションの申し込み用ページに移動します。
+              <strong>Class ID</strong>（旧 Offering ID）のリンクをクリックすると、そのトレーニングセッションの申し込み用ページに移動します。
             </li>
           </ul>
           <aside class="intro-notice" aria-label="お申し込みページとデータに関する注意">
             <p class="intro-notice-title">ご注意（リンク先・データ）</p>
             <p class="intro-notice-body">
-              一部のクラスでは、満席などの理由により、<strong>Offering ID</strong>のリンクをクリックしてもお申し込み用ページが表示されない場合があります。
+              一部のクラスでは、満席などの理由により、<strong>Class ID</strong>（旧 Offering ID）のリンクをクリックしてもお申し込み用ページが表示されない場合があります。
               また、本ページの表と
               <a
                 href="https://raw.githubusercontent.com/Lab8010/redhat-training-schedule/main/docs/data.csv"
@@ -575,6 +575,20 @@
             throw new Error("CSV に「" + name + "」列がありません。");
           }
           return i;
+        }
+
+        /**
+         * 互換性のため複数候補から列名を解決する。
+         * 例: コースコード（新）/ SKU（旧）、Class ID（新）/ Offering ID（旧）
+         */
+        function headerIndexAny(header, names) {
+          for (var i = 0; i < names.length; i++) {
+            var idx = header.indexOf(names[i]);
+            if (idx !== -1) {
+              return idx;
+            }
+          }
+          throw new Error("CSV に「" + names.join(" / ") + "」列がありません。");
         }
 
         function statusSlug(status) {
@@ -795,7 +809,7 @@
             });
         }
 
-        /** Red Hat LMS で Offering ID をキーワード検索する URL */
+        /** Red Hat LMS で Class ID（旧 Offering ID）をキーワード検索する URL */
         function lmsOfferingSearchUrl(oid) {
           var id = String(oid || "").trim();
           if (!id) {
@@ -816,7 +830,7 @@
           return (
             '<td><a class="oid-link" href="' +
             escapeHtml(url) +
-            '" target="_blank" rel="noopener noreferrer" title="Red Hat LMS でこの Offering ID を検索">' +
+            '" target="_blank" rel="noopener noreferrer" title="Red Hat LMS でこの Class ID を検索">' +
             escapeHtml(id) +
             "</a></td>"
           );
@@ -1031,7 +1045,7 @@
             html += '<section class="month-block"><h2>' + escapeHtml(monthLabel(key)) + "</h2>";
             html += '<div class="wrap"><table><thead><tr>';
             html +=
-              "<th>期間（ローカル表記）</th><th>SKU</th><th>Offering</th><th>Class Status</th><th>Offering ID</th>";
+              "<th>期間（ローカル表記）</th><th>コースコード</th><th>Offering</th><th>Class Status</th><th>Class ID</th>";
             html += "</tr></thead><tbody>";
             for (var k = 0; k < list.length; k++) {
               var it = list[k];
@@ -1065,9 +1079,9 @@
           var iStartT = headerIndex(header, "Start Time");
           var iEnd = headerIndex(header, "End Date");
           var iEndT = headerIndex(header, "End Time");
-          var iSku = headerIndex(header, "SKU");
+          var iSku = headerIndexAny(header, ["コースコード", "SKU"]);
           var iName = headerIndex(header, "Offering Name");
-          var iOid = headerIndex(header, "Offering ID");
+          var iOid = headerIndexAny(header, ["Class ID", "Offering ID"]);
           var iStat = headerIndex(header, "Class Status");
 
           var data = [];
