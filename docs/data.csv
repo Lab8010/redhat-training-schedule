@@ -1,4 +1,4 @@
-﻿Start Date,End Date,Start Time,End Time,SKU,Offering Name,Offering ID,Class Status
+﻿Start Date,End Date,Start Time,End Time,コースコード,Offering Name,Class ID,Class Status
 2026/05/25,2026/05/28,09:30 JST,17:30 JST,AU294VT,Red Hat Enterprise Linux Automation with Ansible (AU294VT),89434914,Scheduled
 2026/06/22,2026/06/25,09:30 JST,17:30 JST,AU294VT,Red Hat Enterprise Linux Automation with Ansible (AU294VT),89434919,Scheduled
 2026/04/13,2026/04/16,09:30 JST,17:30 JST,DO180VT,Red Hat OpenShift Administration I: Operating a Production Cluster (DO180VT),89434924,Delivered
