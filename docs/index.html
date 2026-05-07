@@ -514,6 +514,9 @@
         /** GitHub main の Raw と同一 URL（Pages 配下の data.csv よりキャッシュずれしにくい） */
         var CSV_URL =
           "https://raw.githubusercontent.com/Lab8010/redhat-training-schedule/main/docs/data.csv";
+        /** Last-Modified が取れない環境向け: docs/data.csv の最終更新コミット日時 */
+        var CSV_LAST_COMMIT_API_URL =
+          "https://api.github.com/repos/Lab8010/redhat-training-schedule/commits?path=docs/data.csv&per_page=1";
         var CERTIFICATIONS_JSON_URL =
           "https://raw.githubusercontent.com/Lab8010/redhat-certifications-api/main/docs/data/certifications.json";
 
@@ -716,8 +719,33 @@
         /**
          * CSV 本文と更新日時（Last-Modified）をできるだけ取得する。
          * - GET のヘッダで取れない場合、HEAD で再取得を試みる（CORS セーフリスト）。
+         * - それでも無理な場合、GitHub API の最新コミット日時を使う。
          * @returns {Promise<{text: string, lastModified: string|null}>}
          */
+        function fetchCsvLastCommitDate() {
+          return fetch(CSV_LAST_COMMIT_API_URL, { cache: "no-store", credentials: "omit" })
+            .then(function (res) {
+              if (!res.ok) {
+                return null;
+              }
+              return res.json();
+            })
+            .then(function (arr) {
+              if (!Array.isArray(arr) || arr.length === 0) {
+                return null;
+              }
+              var first = arr[0] || {};
+              var commit = first.commit || {};
+              var committer = commit.committer || {};
+              var author = commit.author || {};
+              var dt = committer.date || author.date || null;
+              return typeof dt === "string" && dt ? dt : null;
+            })
+            .catch(function () {
+              return null;
+            });
+        }
+
         function fetchCsvPayload() {
           return fetch(CSV_URL, { cache: "no-store", credentials: "omit" })
             .then(function (res) {
@@ -745,8 +773,24 @@
                   var lm = res.headers.get("Last-Modified");
                   return { text: payload.text, lastModified: lm || null };
                 })
+                .then(function (headPayload) {
+                  if (headPayload.lastModified) {
+                    return headPayload;
+                  }
+                  return fetchCsvLastCommitDate().then(function (commitDate) {
+                    return {
+                      text: headPayload.text,
+                      lastModified: commitDate || null,
+                    };
+                  });
+                })
                 .catch(function () {
-                  return payload;
+                  return fetchCsvLastCommitDate().then(function (commitDate) {
+                    return {
+                      text: payload.text,
+                      lastModified: commitDate || null,
+                    };
+                  });
                 });
             });
         }
