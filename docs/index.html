@@ -131,6 +131,46 @@
       .intro-block a:hover {
         color: var(--rh-red);
       }
+      .intro-block .intro-notice {
+        margin: 0.85rem 0 0.65rem;
+        padding: 0.7rem 0.85rem 0.75rem;
+        border-top: 1px solid var(--rh-border);
+        border-bottom: 1px solid var(--rh-border);
+        border-left: 4px solid var(--rh-red);
+        background: rgba(238, 0, 0, 0.045);
+        border-radius: 0 6px 6px 0;
+      }
+      .intro-block .intro-notice-title {
+        margin: 0 0 0.45rem;
+        padding-bottom: 0.4rem;
+        border-bottom: 1px dashed rgba(238, 0, 0, 0.35);
+        font-size: 0.8125rem;
+        font-weight: 700;
+        color: var(--rh-red);
+        letter-spacing: 0.03em;
+      }
+      .intro-block .intro-notice-body {
+        margin: 0;
+        color: var(--rh-text);
+        font-size: 0.875rem;
+        line-height: 1.55;
+      }
+      .intro-block .intro-notice-body strong {
+        color: var(--rh-red);
+        font-weight: 700;
+      }
+      .intro-block .intro-notice a {
+        color: var(--rh-link);
+      }
+      .intro-block .intro-notice a:hover {
+        color: var(--rh-red);
+      }
+      .intro-block .intro-notice code {
+        font-size: 0.92em;
+        background: rgba(0, 0, 0, 0.06);
+        padding: 0.1em 0.35em;
+        border-radius: 4px;
+      }
       .intro-site-meta {
         margin-top: 1rem;
         padding-top: 1rem;
@@ -372,6 +412,18 @@
               <strong>Offering ID</strong>のリンクをクリックすると、そのトレーニングセッションの申し込み用ページに移動します。
             </li>
           </ul>
+          <aside class="intro-notice" aria-label="お申し込みページとデータに関する注意">
+            <p class="intro-notice-title">ご注意（リンク先・データ）</p>
+            <p class="intro-notice-body">
+              一部のクラスでは、満席などの理由により、<strong>Offering ID</strong>のリンクをクリックしてもお申し込み用ページが表示されない場合があります。
+              また、本ページの表と
+              <a
+                href="https://raw.githubusercontent.com/Lab8010/redhat-training-schedule/main/docs/data.csv"
+                target="_blank"
+                rel="noopener noreferrer"
+                ><code>docs/data.csv</code>（GitHub Raw）</a>の内容が食い違う場合は、<strong><code>data.csv</code> 側の情報を正</strong>として参照してください。ブラウザや CDN のキャッシュの影響で、本ページに古い情報が残っていることがあります。
+            </p>
+          </aside>
           <p class="sub">
             なお、2026年1月より Red Hat ではトレーニングの販売形式が年間サブスクリプション形式である「Red Hat Learning Subscription」というサービスに変更しました。
           </p>
@@ -465,7 +517,9 @@
     </main>
     <script>
       (function () {
-        var CSV_URL = "data.csv";
+        /** GitHub main の Raw と同一 URL（Pages 配下の data.csv よりキャッシュずれしにくい） */
+        var CSV_URL =
+          "https://raw.githubusercontent.com/Lab8010/redhat-training-schedule/main/docs/data.csv";
         var CERTIFICATIONS_JSON_URL =
           "https://raw.githubusercontent.com/Lab8010/redhat-certifications-api/main/docs/data/certifications.json";
 
@@ -1005,7 +1059,7 @@
 
         Promise.all([
           loadCertificationsTrainingUrls(),
-          fetch(CSV_URL).then(function (res) {
+          fetch(CSV_URL, { cache: "no-store", credentials: "omit" }).then(function (res) {
             if (!res.ok) {
               throw new Error(res.status + " " + res.statusText);
             }
