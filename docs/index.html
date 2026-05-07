@@ -401,9 +401,7 @@
       <div class="rh-page-inner">
         <p id="schedule-updated" class="schedule-updated" aria-live="polite" hidden></p>
         <div class="intro-block">
-          <p class="sub">
-            このサイトでは、Red Hat が提供する予定の公式トレーニングの予定を始めとする情報を掲示しています。
-          </p>
+          <p class="sub">Red Hat 公式トレーニング（日本向け）の開催予定を一覧で掲載しています。</p>
           <ul class="intro-links">
             <li>
               <strong>SKU</strong>のリンクをクリックすると、そのトレーニングコースの概要ページにアクセスできます。
@@ -425,18 +423,13 @@
             </p>
           </aside>
           <p class="sub">
-            なお、2026年1月より Red Hat ではトレーニングの販売形式が年間サブスクリプション形式である「Red Hat Learning Subscription」というサービスに変更しました。
-          </p>
-          <p class="sub">
-            Red Hat Learning Subscription の詳細については
+            2026年1月より、トレーニングの購入は年間サブスクリプション「Red Hat Learning Subscription（RHLS）」が基本です。詳細は
             <a
               href="https://www.redhat.com/ja/services/training/learning-subscription"
               target="_blank"
               rel="noopener noreferrer"
-              >こちら</a>をご覧ください。
-          </p>
-          <p class="sub">
-            上記のリンクより1年間有効な学習サブスクリプションを購入後、1年間の間に任意の受講回でのトレーニング受講を頂きます。
+              >こちら</a
+            >をご覧ください。
           </p>
           <section class="video-embed-block" aria-labelledby="embedded-youtube-title">
             <h2 id="embedded-youtube-title" class="video-embed-title">参考動画（YouTube）</h2>
@@ -481,12 +474,13 @@
           </section>
           <div class="intro-site-meta">
             <p class="sub">
-              このページのソースおよび <code>docs/data.csv</code> をはじめとするデータは、次の GitHub レポジトリで公開・管理されています。
+              このページのソースコードと <code>docs/data.csv</code> は、GitHub の
               <a
                 href="https://github.com/Lab8010/redhat-training-schedule/tree/main"
                 target="_blank"
                 rel="noopener noreferrer"
-                >Lab8010/redhat-training-schedule</a>です。
+                >Lab8010/redhat-training-schedule</a
+              >で公開しています。
             </p>
             <p class="sub">
               本ページは
@@ -687,7 +681,7 @@
             .replace(/"/g, "&quot;");
         }
 
-        /** data.csv の Last-Modified が取れたときだけ意味のある更新日時 */
+        /** data.csv の更新日時（可能なら Last-Modified） */
         function renderScheduleUpdated(lastModifiedHeader) {
           var el = document.getElementById("schedule-updated");
           if (!el) {
@@ -717,6 +711,44 @@
           el.textContent =
             "スケジュールデータの更新日時は、配信元の応答からは取得できませんでした。（毎日午前に更新）";
           el.hidden = false;
+        }
+
+        /**
+         * CSV 本文と更新日時（Last-Modified）をできるだけ取得する。
+         * - GET のヘッダで取れない場合、HEAD で再取得を試みる（CORS セーフリスト）。
+         * @returns {Promise<{text: string, lastModified: string|null}>}
+         */
+        function fetchCsvPayload() {
+          return fetch(CSV_URL, { cache: "no-store", credentials: "omit" })
+            .then(function (res) {
+              if (!res.ok) {
+                throw new Error(res.status + " " + res.statusText);
+              }
+              var lastModified = res.headers.get("Last-Modified");
+              return res.text().then(function (text) {
+                return { text: text, lastModified: lastModified || null };
+              });
+            })
+            .then(function (payload) {
+              if (payload.lastModified) {
+                return payload;
+              }
+              return fetch(CSV_URL, {
+                method: "HEAD",
+                cache: "no-store",
+                credentials: "omit",
+              })
+                .then(function (res) {
+                  if (!res.ok) {
+                    return payload;
+                  }
+                  var lm = res.headers.get("Last-Modified");
+                  return { text: payload.text, lastModified: lm || null };
+                })
+                .catch(function () {
+                  return payload;
+                });
+            });
         }
 
         /** Red Hat LMS で Offering ID をキーワード検索する URL */
@@ -1057,18 +1089,7 @@
           }
         });
 
-        Promise.all([
-          loadCertificationsTrainingUrls(),
-          fetch(CSV_URL, { cache: "no-store", credentials: "omit" }).then(function (res) {
-            if (!res.ok) {
-              throw new Error(res.status + " " + res.statusText);
-            }
-            var lastModified = res.headers.get("Last-Modified");
-            return res.text().then(function (text) {
-              return { text: text, lastModified: lastModified };
-            });
-          }),
-        ])
+        Promise.all([loadCertificationsTrainingUrls(), fetchCsvPayload()])
           .then(function (pair) {
             state.certTrainingUrlByCourse = pair[0];
             var csvPayload = pair[1];
