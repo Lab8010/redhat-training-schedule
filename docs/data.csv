@@ -1,6 +1,4 @@
 ﻿Start Date,End Date,Start Time,End Time,コースコード,Offering Name,Class ID,Class Status
-2026/04/13,2026/04/16,09:30 JST,17:30 JST,DO180VT,Red Hat OpenShift Administration I: Operating a Production Cluster (DO180VT),89434924,Delivered
-2026/05/11,2026/05/15,09:30 JST,17:30 JST,RH199VT,RHCSA Rapid Track Course (RH199VT),89434980,Guaranteed To Run
 2026/05/18,2026/05/20,09:30 JST,17:30 JST,DO188VT,Red Hat OpenShift Development I: Introduction to Containers with Podman (DO188VT),89434938,Scheduled
 2026/05/25,2026/05/28,09:30 JST,17:30 JST,DO280VT,Red Hat OpenShift Administration II: Configuring a Production Cluster (DO280VT),89434946,Scheduled
 2026/05/25,2026/05/28,09:30 JST,17:30 JST,DO288VT,Red Hat OpenShift Developer II: Building and Deploying Cloud-native Applications (DO288VT),90842169,Scheduled
