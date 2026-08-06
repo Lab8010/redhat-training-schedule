@@ -1,7 +1,9 @@
 ﻿Start Date,End Date,Start Time,End Time,コースコード,Offering Name,Class ID,Class Status
-2026/08/24,2026/08/27,09:30 JST,17:30 JST,DO280VT,Red Hat OpenShift Administration II: Configuring a Production Cluster (DO280VT),92336330,Scheduled
+2026/08/24,2026/08/27,09:30 JST,17:30 JST,DO280VT,Red Hat OpenShift Administration II: Configuring a Production Cluster (DO280VT),92336330,Guaranteed To Run
+2026/08/26,2026/08/28,09:30 JST,17:30 JST,PTD12,Red Hat Private Training - Red Hat Training: DevOps Culture and Practice Enablement (TL500),92817803,Scheduled
 2026/09/07,2026/09/11,09:30 JST,17:30 JST,RH199VT,RHCSA Rapid Track Course (RH199VT),91247242,Scheduled
 2026/09/07,2026/09/11,09:30 JST,17:30 JST,DO316VT,Red Hat OpenShift Virtualization Administration Rapid Track (DO316VT),92219253,Scheduled
+2026/09/09,2026/09/10,09:30 JST,17:30 JST,PTD12,Red Hat Private Training - Red Hat Training: DevOps Culture and Practice Enablement (TL500),92818277,Scheduled
 2026/09/14,2026/09/17,09:30 JST,17:30 JST,AU294VT,Red Hat Enterprise Linux Automation with Ansible (AU294VT),91246002,Scheduled
 2026/09/14,2026/09/17,09:30 JST,17:30 JST,DO288VT,Red Hat OpenShift Developer II: Building and Deploying Cloud-native Applications (DO288VT),91247122,Scheduled
 2026/09/16,2026/09/18,09:30 JST,17:30 JST,DO156VT,Red Hat OpenShift Virtualization Administration I: Operating Virtual Machines Virtual Training (DO156VT ),92074654,Scheduled
@@ -16,6 +18,7 @@
 2026/10/19,2026/10/22,09:30 JST,17:30 JST,DO288VT,Red Hat OpenShift Developer II: Building and Deploying Cloud-native Applications (DO288VT),91247131,Scheduled
 2026/10/19,2026/10/23,09:30 JST,17:30 JST,RH124VT,Red Hat System Administration I (RH124VT) (RHEL 10),91247187,Scheduled
 2026/10/20,2026/10/22,09:30 JST,17:30 JST,DO156VT,Red Hat OpenShift Virtualization Administration I: Operating Virtual Machines Virtual Training (DO156VT ),92202935,Scheduled
+2026/10/21,2026/10/23,09:30 JST,22:30 JST,PTD12,Red Hat Private Training - Red Hat Training: DevOps Culture and Practice Enablement (TL500),92818524,Scheduled
 2026/10/26,2026/10/29,09:30 JST,17:30 JST,DO180VT,Red Hat OpenShift Administration I: Operating a Production Cluster (DO180VT),91132529,Scheduled
 2026/10/26,2026/10/30,09:30 JST,17:30 JST,RH134VT,Red Hat System Administration II (RH134VT) (RHEL 10),91247220,Scheduled
 2026/11/04,2026/11/05,09:30 JST,17:30 JST,CL170VT,OpenStack Administration: Control Plane Management (CL170VT),91247078,Scheduled
@@ -33,6 +36,3 @@
 2026/12/14,2026/12/16,09:30 JST,17:30 JST,DO256VT,Red Hat OpenShift Virtualization Administration II: Configuring Production Virtual Machines ( DO256VT),92074352,Scheduled
 2026/12/14,2026/12/18,09:30 JST,17:30 JST,RH124VT,Red Hat System Administration I (RH124VT),92485368,Scheduled
 2026/12/21,2026/12/24,09:30 JST,17:30 JST,DO380VT,Red Hat OpenShift Administration III: Scaling Deployments in the Enterprise (DO380VT),91154453,Scheduled
-2026/08/26,2026/08/28,09:30 JST,17:30 JST,PTD12,Red Hat Private Training - Red Hat Training: DevOps Culture and Practice Enablement (TL500),92817803,Scheduled
-2026/09/09,2026/09/10,09:30 JST,17:30 JST,PTD12,Red Hat Private Training - Red Hat Training: DevOps Culture and Practice Enablement (TL500),92818277,Scheduled
-2026/10/21,2026/10/23,09:30 JST,22:30 JST,PTD12,Red Hat Private Training - Red Hat Training: DevOps Culture and Practice Enablement (TL500),92818524,Scheduled
