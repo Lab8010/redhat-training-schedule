@@ -498,7 +498,7 @@
       }
       .bar-row {
         display: grid;
-        grid-template-columns: minmax(0, 15rem) minmax(0, 1fr) auto;
+        grid-template-columns: minmax(0, 15rem) minmax(0, 1fr) 16rem;
         align-items: center;
         gap: 0.6rem;
         width: 100%;
@@ -539,7 +539,7 @@
         font-size: 0.75rem;
         color: var(--rh-muted);
         white-space: nowrap;
-        min-width: 11rem;
+        min-width: 0;
         display: flex;
         gap: 0.4rem;
         align-items: center;
@@ -585,10 +585,7 @@
       }
       @media (max-width: 720px) {
         .bar-row {
-          grid-template-columns: minmax(0, 8rem) minmax(0, 1fr) auto;
-        }
-        .bar-meta {
-          min-width: 0;
+          grid-template-columns: minmax(0, 8rem) minmax(0, 1fr) 5.5rem;
         }
         .bar-meta .next {
           display: none;
