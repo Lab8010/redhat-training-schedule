@@ -6,13 +6,13 @@ Red Hat が提供する技術トレーニングの予定を、**CSV** または 
 
 | パス | 内容 |
 |------|------|
-| [`docs/data.csv`](docs/data.csv) | クラス予定などの表形式データ（CSV） |
+| [`docs/data_2026.csv`](docs/data_2026.csv) / [`docs/data_2027.csv`](docs/data_2027.csv) | クラス予定などの表形式データ（CSV） |
 | [`docs/holidays.csv`](docs/holidays.csv) | 日本の国民の祝日データ（CSV） |
 | [`docs/index.html`](https://lab8010.github.io/redhat-training-schedule/) | 上記 CSV を読み込んで表示する静的ページ（HTML） |
 
 ## データソースについて
 
-### トレーニングスケジュール (`data.csv`)
+### トレーニングスケジュール (`data_YYYY.csv`)
 
 Red Hat 公式のトレーニングクラス予定データです。
 
@@ -43,7 +43,7 @@ Grafana などの可視化ツールで、トレーニングスケジュールと
 ## このサイトについて
 
 - 公開・管理は **Lab8010** が行っています。Red Hat の公式サイトではなく、Red Hat 認定インストラクターによるボランティア運用です。
-- `docs/data.csv` および `docs/holidays.csv` は各自のサイトへの掲載などに活用できます。条件はリポジトリルートの [**MIT License**](LICENSE) に従ってください。
+- `docs/data_YYYY.csv` および `docs/holidays.csv` は各自のサイトへの掲載などに活用できます。条件はリポジトリルートの [**MIT License**](LICENSE) に従ってください。
   - 祝日データの出典: 内閣府「[国民の祝日について](https://www8.cao.go.jp/chosei/shukujitsu/gaiyou.html)」
 
 ## GitHub Pages で見る場合

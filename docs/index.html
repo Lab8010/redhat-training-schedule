@@ -416,10 +416,10 @@
               一部のクラスでは、満席などの理由により、<strong>Class ID</strong>（旧 Offering ID）のリンクをクリックしてもお申し込み用ページが表示されない場合があります。
               また、本ページの表と
               <a
-                href="https://raw.githubusercontent.com/Lab8010/redhat-training-schedule/main/docs/data.csv"
+                href="https://raw.githubusercontent.com/Lab8010/redhat-training-schedule/main/docs/data_2026.csv"
                 target="_blank"
                 rel="noopener noreferrer"
-                ><code>docs/data.csv</code>（GitHub Raw）</a>の内容が食い違う場合は、<strong><code>data.csv</code> 側の情報を正</strong>として参照してください。ブラウザや CDN のキャッシュの影響で、本ページに古い情報が残っていることがあります。
+                ><code>docs/data_2026.csv</code>・<code>docs/data_2027.csv</code>（GitHub Raw）</a>の内容が食い違う場合は、<strong><code>data_YYYY.csv</code> 側の情報を正</strong>として参照してください。ブラウザや CDN のキャッシュの影響で、本ページに古い情報が残っていることがあります。
             </p>
           </aside>
           <p class="sub">
@@ -474,7 +474,7 @@
           </section>
           <div class="intro-site-meta">
             <p class="sub">
-              このページのソースコードと <code>docs/data.csv</code> は、GitHub の
+              このページのソースコードと <code>docs/data_YYYY.csv</code> は、GitHub の
               <a
                 href="https://github.com/Lab8010/redhat-training-schedule/tree/main"
                 target="_blank"
@@ -496,7 +496,7 @@
                 >https://www.redhat.com/en/services/training-and-certification/contact-us</a>
             </p>
             <p class="sub">
-              レポジトリ内の Raw データ（<code>docs/data.csv</code>）は、各自のサイトでの掲載などに活用していただいて構いません。利用条件はレポジトリルートの
+              レポジトリ内の Raw データ（<code>docs/data_YYYY.csv</code>）は、各自のサイトでの掲載などに活用していただいて構いません。利用条件はレポジトリルートの
               <strong>MIT License</strong>（<code>LICENSE</code> ファイル）に従ってください。
             </p>
           </div>
@@ -511,12 +511,19 @@
     </main>
     <script>
       (function () {
-        /** GitHub main の Raw と同一 URL（Pages 配下の data.csv よりキャッシュずれしにくい） */
-        var CSV_URL =
-          "https://raw.githubusercontent.com/Lab8010/redhat-training-schedule/main/docs/data.csv";
-        /** Last-Modified が取れない環境向け: docs/data.csv の最終更新コミット日時 */
-        var CSV_LAST_COMMIT_API_URL =
-          "https://api.github.com/repos/Lab8010/redhat-training-schedule/commits?path=docs/data.csv&per_page=1";
+        /** GitHub main の Raw と同一 URL（Pages 配下の data_YYYY.csv よりキャッシュずれしにくい） */
+        var CSV_BASE_URL =
+          "https://raw.githubusercontent.com/Lab8010/redhat-training-schedule/main/docs/";
+        /** 掲載する年度（data_<年>.csv）。存在しない年のファイルは無視する */
+        var CSV_YEARS = [2026, 2027];
+        /** Last-Modified が取れない環境向け: 該当 CSV の最終更新コミット日時 API */
+        function csvLastCommitApiUrl(year) {
+          return (
+            "https://api.github.com/repos/Lab8010/redhat-training-schedule/commits?path=docs/data_" +
+            year +
+            ".csv&per_page=1"
+          );
+        }
         var CERTIFICATIONS_JSON_URL =
           "https://raw.githubusercontent.com/Lab8010/redhat-certifications-api/main/docs/data/certifications.json";
 
@@ -698,7 +705,7 @@
             .replace(/"/g, "&quot;");
         }
 
-        /** data.csv の更新日時（可能なら Last-Modified） */
+        /** data_YYYY.csv の更新日時（可能なら Last-Modified） */
         function renderScheduleUpdated(lastModifiedHeader) {
           var el = document.getElementById("schedule-updated");
           if (!el) {
@@ -712,7 +719,7 @@
               return;
             }
             el.textContent =
-              "スケジュールデータ（data.csv）の更新: " +
+              "スケジュールデータ（data_YYYY.csv）の更新: " +
               d.toLocaleString("ja-JP", {
                 year: "numeric",
                 month: "long",
@@ -736,8 +743,8 @@
          * - それでも無理な場合、GitHub API の最新コミット日時を使う。
          * @returns {Promise<{text: string, lastModified: string|null}>}
          */
-        function fetchCsvLastCommitDate() {
-          return fetch(CSV_LAST_COMMIT_API_URL, { cache: "no-store", credentials: "omit" })
+        function fetchCsvLastCommitDate(year) {
+          return fetch(csvLastCommitApiUrl(year), { cache: "no-store", credentials: "omit" })
             .then(function (res) {
               if (!res.ok) {
                 return null;
@@ -760,7 +767,8 @@
             });
         }
 
-        function fetchCsvPayload() {
+        function fetchCsvPayload(year) {
+          var CSV_URL = CSV_BASE_URL + "data_" + year + ".csv";
           return fetch(CSV_URL, { cache: "no-store", credentials: "omit" })
             .then(function (res) {
               if (!res.ok) {
@@ -791,7 +799,7 @@
                   if (headPayload.lastModified) {
                     return headPayload;
                   }
-                  return fetchCsvLastCommitDate().then(function (commitDate) {
+                  return fetchCsvLastCommitDate(year).then(function (commitDate) {
                     return {
                       text: headPayload.text,
                       lastModified: commitDate || null,
@@ -799,7 +807,7 @@
                   });
                 })
                 .catch(function () {
-                  return fetchCsvLastCommitDate().then(function (commitDate) {
+                  return fetchCsvLastCommitDate(year).then(function (commitDate) {
                     return {
                       text: payload.text,
                       lastModified: commitDate || null,
@@ -807,6 +815,46 @@
                   });
                 });
             });
+        }
+
+        /** 全年度の CSV を取得して 1 つにまとめる。未公開の年（404 等）は読み飛ばす */
+        function fetchAllCsvPayloads() {
+          return Promise.all(
+            CSV_YEARS.map(function (y) {
+              return fetchCsvPayload(y).then(
+                function (p) {
+                  return p;
+                },
+                function (e) {
+                  return { error: e, text: "", lastModified: null };
+                }
+              );
+            })
+          ).then(function (list) {
+            var ok = list.filter(function (p) {
+              return !p.error;
+            });
+            if (ok.length === 0) {
+              throw list[0].error;
+            }
+            var rows = [];
+            var latest = null;
+            ok.forEach(function (p) {
+              var parsed = parseCSV(p.text);
+              if (rows.length === 0) {
+                rows = parsed;
+              } else {
+                rows = rows.concat(parsed.slice(1));
+              }
+              if (p.lastModified) {
+                var t = new Date(p.lastModified).getTime();
+                if (!isNaN(t) && (latest === null || t > latest.t)) {
+                  latest = { t: t, v: p.lastModified };
+                }
+              }
+            });
+            return { rows: rows, lastModified: latest ? latest.v : null };
+          });
         }
 
         /** Red Hat LMS で Class ID（旧 Offering ID）をキーワード検索する URL */
@@ -1147,12 +1195,12 @@
           }
         });
 
-        Promise.all([loadCertificationsTrainingUrls(), fetchCsvPayload()])
+        Promise.all([loadCertificationsTrainingUrls(), fetchAllCsvPayloads()])
           .then(function (pair) {
             state.certTrainingUrlByCourse = pair[0];
             var csvPayload = pair[1];
             renderScheduleUpdated(csvPayload.lastModified);
-            ingestRows(parseCSV(csvPayload.text));
+            ingestRows(csvPayload.rows);
           })
           .catch(function (e) {
             document.getElementById("app").innerHTML =
