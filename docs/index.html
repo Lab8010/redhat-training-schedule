@@ -96,6 +96,17 @@
       .schedule-updated[hidden] {
         display: none;
       }
+      .rh-footer {
+        background: var(--rh-hero-bg);
+        border-top: 1px solid var(--rh-border);
+        padding: 1.5rem 1.25rem 2rem;
+      }
+      .rh-footer .intro-block {
+        margin-bottom: 0;
+      }
+      .hero-more {
+        font-size: 0.8rem !important;
+      }
       .intro-block {
         margin-bottom: 1.25rem;
       }
@@ -653,6 +664,47 @@
       <div class="rh-page-inner">
         <div class="intro-block">
           <p class="sub">Red Hat 公式トレーニング（日本向け）の開催予定を一覧で掲載しています。</p>
+          <p class="sub hero-more">お知らせ・使い方・このサイトについては <a href="#site-info">ページ下部</a> をご覧ください。</p>
+          <aside class="intro-notice" aria-label="ご注意">
+            <p class="intro-notice-title">ご注意</p>
+            <p class="intro-notice-body">
+              満席などで、<strong>Class ID</strong> のリンク先（申し込みページ）が開けないことがあります。<br />
+              表示が古い場合は、<a
+                href="https://github.com/Lab8010/redhat-training-schedule/tree/main/docs"
+                target="_blank"
+                rel="noopener noreferrer"
+                >GitHub 上の CSV</a>を正としてご確認ください。
+            </p>
+          </aside>
+        </div>
+      </div>
+    </div>
+    <main class="rh-main" id="main-content">
+      <div class="rh-page-inner">
+        <details class="analytics" id="analytics">
+          <summary>📊 開催頻度グラフ（どのコースがどれくらい開催されるか）</summary>
+          <div class="analytics-body">
+            <div class="an-controls">
+              <label>集計年
+                <select id="an-year"></select>
+              </label>
+              <label><input type="checkbox" id="an-cancelled" /> Cancelled を含める</label>
+              <label><input type="checkbox" id="an-past" checked /> 終了済みクラスを含める</label>
+            </div>
+            <p class="an-note">棒をクリックすると、そのコースだけに下の一覧を絞り込めます。「レア」は集計範囲で 1 回しか開催されないコースです。製品カテゴリの選択も反映されます。</p>
+            <div id="an-bars"></div>
+            <h3 class="an-h">月 × コース（開催数ヒートマップ）</h3>
+            <div id="an-heat"></div>
+          </div>
+        </details>
+        <nav id="cat-nav" class="cat-nav" hidden aria-label="製品カテゴリの絞り込み"></nav>
+        <nav id="month-nav" class="month-nav" hidden aria-label="表示月の切り替え"></nav>
+        <div id="app">読み込み中…</div>
+      </div>
+    </main>
+    <footer class="rh-footer" id="site-info">
+      <div class="rh-page-inner">
+        <div class="intro-block">
           <aside class="intro-news" aria-label="お知らせ">
             <p class="intro-news-title">📢 お知らせ <span class="intro-news-date">（掲載日時: 2026/10/19 15:27 JST）</span></p>
             <ul class="intro-news-list">
@@ -687,17 +739,6 @@
               <strong>Class ID</strong>（旧 Offering ID）のリンクをクリックすると、そのトレーニングセッションの申し込み用ページに移動します。
             </li>
           </ul>
-          <aside class="intro-notice" aria-label="ご注意">
-            <p class="intro-notice-title">ご注意</p>
-            <p class="intro-notice-body">
-              満席などで、<strong>Class ID</strong> のリンク先（申し込みページ）が開けないことがあります。<br />
-              表示が古い場合は、<a
-                href="https://github.com/Lab8010/redhat-training-schedule/tree/main/docs"
-                target="_blank"
-                rel="noopener noreferrer"
-                >GitHub 上の CSV</a>を正としてご確認ください。
-            </p>
-          </aside>
           <p class="sub">
             2026年1月より、トレーニングの購入は年間サブスクリプション「Red Hat Learning Subscription（RHLS）」が基本です。詳細は
             <a
@@ -778,30 +819,7 @@
           </div>
         </div>
       </div>
-    </div>
-    <main class="rh-main" id="main-content">
-      <div class="rh-page-inner">
-        <details class="analytics" id="analytics">
-          <summary>📊 開催頻度グラフ（どのコースがどれくらい開催されるか）</summary>
-          <div class="analytics-body">
-            <div class="an-controls">
-              <label>集計年
-                <select id="an-year"></select>
-              </label>
-              <label><input type="checkbox" id="an-cancelled" /> Cancelled を含める</label>
-              <label><input type="checkbox" id="an-past" checked /> 終了済みクラスを含める</label>
-            </div>
-            <p class="an-note">棒をクリックすると、そのコースだけに下の一覧を絞り込めます。「レア」は集計範囲で 1 回しか開催されないコースです。製品カテゴリの選択も反映されます。</p>
-            <div id="an-bars"></div>
-            <h3 class="an-h">月 × コース（開催数ヒートマップ）</h3>
-            <div id="an-heat"></div>
-          </div>
-        </details>
-        <nav id="cat-nav" class="cat-nav" hidden aria-label="製品カテゴリの絞り込み"></nav>
-        <nav id="month-nav" class="month-nav" hidden aria-label="表示月の切り替え"></nav>
-        <div id="app">読み込み中…</div>
-      </div>
-    </main>
+    </footer>
     <script>
       (function () {
         /** GitHub main の Raw と同一 URL（Pages 配下の data_YYYY.csv よりキャッシュずれしにくい） */
