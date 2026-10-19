@@ -88,11 +88,13 @@
         padding: 1.25rem 1.25rem 2.5rem;
       }
       .schedule-updated {
-        font-size: 0.9rem;
-        font-weight: 700;
-        color: var(--rh-text);
-        margin: 0 0 0.65rem;
+        font-size: 0.78rem;
+        color: rgba(255, 255, 255, 0.78);
+        margin: 0.2rem 0 0;
         font-variant-numeric: tabular-nums;
+      }
+      .schedule-updated[hidden] {
+        display: none;
       }
       .intro-block {
         margin-bottom: 1.25rem;
@@ -108,11 +110,52 @@
       .intro-block .sub:last-child {
         margin-bottom: 0;
       }
+      .intro-block .intro-news {
+        margin: 0.85rem 0 0.65rem;
+        padding: 0.7rem 0.85rem 0.75rem;
+        border: 1px solid rgba(0, 102, 204, 0.35);
+        border-left: 4px solid var(--rh-link);
+        background: rgba(0, 102, 204, 0.07);
+        border-radius: 0 6px 6px 0;
+      }
+      .intro-block .intro-news-title {
+        margin: 0 0 0.45rem;
+        padding-bottom: 0.4rem;
+        border-bottom: 1px dashed rgba(0, 102, 204, 0.4);
+        font-size: 0.95rem;
+        font-weight: 700;
+        color: var(--rh-link);
+      }
+      .intro-block .intro-news-date {
+        margin-left: 0.4rem;
+        font-size: 0.78rem;
+        font-weight: 400;
+        color: var(--rh-muted);
+      }
+      .intro-block .intro-news-list {
+        margin: 0;
+        padding-left: 1.2rem;
+        color: var(--rh-text);
+        font-size: 0.9rem;
+        line-height: 1.6;
+      }
+      .intro-block .intro-news-list li {
+        margin-bottom: 0.35rem;
+      }
+      .intro-block .intro-news-list li:last-child {
+        margin-bottom: 0;
+      }
+      .intro-block .intro-usage-title {
+        margin: 0.9rem 0 0.4rem;
+        font-size: 1.15rem;
+        font-weight: 700;
+        color: var(--rh-text);
+      }
       .intro-block ul.intro-links {
         margin: 0 0 0.55rem 0;
-        padding-left: 1.2rem;
-        color: var(--rh-muted);
-        font-size: 0.875rem;
+        padding-left: 1.3rem;
+        color: var(--rh-text);
+        font-size: 1.05rem;
       }
       .intro-block ul.intro-links li {
         margin-bottom: 0.35rem;
@@ -603,13 +646,39 @@
           <span class="rh-header-sep" aria-hidden="true">|</span>
           <span>トレーニングスケジュール</span>
         </h1>
+        <p id="schedule-updated" class="schedule-updated" aria-live="polite" hidden></p>
       </div>
     </header>
     <div class="rh-hero">
       <div class="rh-page-inner">
-        <p id="schedule-updated" class="schedule-updated" aria-live="polite" hidden></p>
         <div class="intro-block">
           <p class="sub">Red Hat 公式トレーニング（日本向け）の開催予定を一覧で掲載しています。</p>
+          <aside class="intro-news" aria-label="お知らせ">
+            <p class="intro-news-title">📢 お知らせ <span class="intro-news-date">（掲載日時: 2026/10/19 15:27 JST）</span></p>
+            <ul class="intro-news-list">
+              <li><strong>2027年のクラス開講予定の掲載を開始しました。</strong>2026年分と続けて一覧で確認できます。</li>
+              <li>
+                <strong>開講クラスの Raw データを年度別に分割しました。</strong>
+                <a
+                  href="https://raw.githubusercontent.com/Lab8010/redhat-training-schedule/main/docs/data_2026.csv"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >data_2026.csv</a
+                >／
+                <a
+                  href="https://raw.githubusercontent.com/Lab8010/redhat-training-schedule/main/docs/data_2027.csv"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >data_2027.csv</a
+                >
+              </li>
+              <li>
+                <strong>各コースの開講状況がひと目でわかる<a href="#analytics" data-open-analytics="1">「開催頻度グラフ」</a>を追加しました。</strong>
+                開催が多いコース・珍しいコースを棒グラフで比較でき、製品カテゴリでの絞り込みにも対応しています。
+              </li>
+            </ul>
+          </aside>
+          <h2 class="intro-usage-title">【このサイトの使い方】</h2>
           <ul class="intro-links">
             <li>
               <strong>コースコード</strong>のリンクをクリックすると、そのトレーニングコースの概要ページにアクセスできます。
@@ -618,16 +687,15 @@
               <strong>Class ID</strong>（旧 Offering ID）のリンクをクリックすると、そのトレーニングセッションの申し込み用ページに移動します。
             </li>
           </ul>
-          <aside class="intro-notice" aria-label="お申し込みページとデータに関する注意">
-            <p class="intro-notice-title">ご注意（リンク先・データ）</p>
+          <aside class="intro-notice" aria-label="ご注意">
+            <p class="intro-notice-title">ご注意</p>
             <p class="intro-notice-body">
-              一部のクラスでは、満席などの理由により、<strong>Class ID</strong>（旧 Offering ID）のリンクをクリックしてもお申し込み用ページが表示されない場合があります。
-              また、本ページの表と
-              <a
-                href="https://raw.githubusercontent.com/Lab8010/redhat-training-schedule/main/docs/data_2026.csv"
+              満席などで、<strong>Class ID</strong> のリンク先（申し込みページ）が開けないことがあります。<br />
+              表示が古い場合は、<a
+                href="https://github.com/Lab8010/redhat-training-schedule/tree/main/docs"
                 target="_blank"
                 rel="noopener noreferrer"
-                ><code>docs/data_2026.csv</code>・<code>docs/data_2027.csv</code>（GitHub Raw）</a>の内容が食い違う場合は、<strong><code>data_YYYY.csv</code> 側の情報を正</strong>として参照してください。ブラウザや CDN のキャッシュの影響で、本ページに古い情報が残っていることがあります。
+                >GitHub 上の CSV</a>を正としてご確認ください。
             </p>
           </aside>
           <p class="sub">
@@ -985,7 +1053,7 @@
               return;
             }
             el.textContent =
-              "スケジュールデータ（data_YYYY.csv）の更新: " +
+              "最終更新: " +
               d.toLocaleString("ja-JP", {
                 year: "numeric",
                 month: "long",
@@ -999,7 +1067,7 @@
             return;
           }
           el.textContent =
-            "スケジュールデータの更新日時は、配信元の応答からは取得できませんでした。（毎日午前に更新）";
+            "最終更新日時は取得できませんでした。（毎日午前に更新）";
           el.hidden = false;
         }
 
@@ -1781,6 +1849,14 @@
         }
 
         document.addEventListener("click", function (e) {
+          var anLink = e.target.closest("[data-open-analytics]");
+          if (anLink) {
+            e.preventDefault();
+            var det = document.getElementById("analytics");
+            det.open = true;
+            det.scrollIntoView({ behavior: "smooth", block: "start" });
+            return;
+          }
           var catBtn = e.target.closest("[data-cat], [data-cat-all], [data-cat-clear], [data-course-clear]");
           if (catBtn) {
             e.preventDefault();
