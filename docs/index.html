@@ -585,6 +585,36 @@
         line-height: 1.6;
         color: var(--rh-text);
       }
+      /* コースから探す: コード・コース名を主役に、日程は一段小さく */
+      #course-list .cc-head {
+        font-size: 1.3rem;
+        line-height: 1.35;
+        gap: 0.2rem 0.75rem;
+      }
+      #course-list .cc-head strong {
+        font-size: 1.3rem;
+      }
+      #course-list .cc-title {
+        font-size: 1.2rem;
+        font-weight: 700;
+      }
+      #course-list .sku-dot {
+        width: 0.9rem;
+        height: 0.9rem;
+      }
+      #course-list .cc-next {
+        margin-top: 0.5rem;
+        font-size: 0.85rem;
+      }
+      #course-list .cls-row .cls-date {
+        font-size: 0.85rem;
+        font-weight: 600;
+        color: var(--rh-muted);
+      }
+      #course-list .btn-apply {
+        font-size: 0.78rem;
+        padding: 0.15rem 0.6rem;
+      }
       .month-block {
         margin-bottom: 2rem;
       }
@@ -765,6 +795,11 @@
       }
       .video-embed-block .sub.video-embed-note {
         margin: 0 0 0.55rem;
+      }
+      .video-embed-block .sub.video-embed-lead {
+        margin: 0 0 0.55rem;
+        font-size: 0.95rem;
+        line-height: 1.6;
       }
       .video-embed-wrap {
         position: relative;
@@ -1074,6 +1109,9 @@
           </p>
           <section class="video-embed-block" id="usage-video" aria-labelledby="embedded-youtube-title">
             <h2 id="embedded-youtube-title" class="video-embed-title">参考動画（YouTube）</h2>
+            <p class="sub video-embed-lead">
+              <strong>RHLS Premium / Course 両ユーザー様は、本サイトでご都合が合うクラスを見つけたら、以下の手順で席を確保します。</strong>
+            </p>
             <p class="sub video-embed-note">
               以下のプレーヤーからページ内で再生できます（
               <a
