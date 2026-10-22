@@ -104,9 +104,6 @@
       .rh-footer .intro-block {
         margin-bottom: 0;
       }
-      .hero-more {
-        font-size: 0.8rem !important;
-      }
       .intro-block {
         margin-bottom: 1.25rem;
       }
@@ -155,6 +152,29 @@
       }
       .intro-block .intro-news-list li:last-child {
         margin-bottom: 0;
+      }
+      .intro-block .intro-usage {
+        margin: 0.85rem 0 0.65rem;
+        padding: 0.4rem 0.85rem 0.75rem;
+        border-top: 1px solid rgba(62, 134, 53, 0.45);
+        border-bottom: 1px solid rgba(62, 134, 53, 0.45);
+        border-right: 1px solid rgba(62, 134, 53, 0.45);
+        border-left: 4px solid #3e8635;
+        background: rgba(62, 134, 53, 0.08);
+        border-radius: 0 6px 6px 0;
+      }
+      .intro-block .intro-usage .intro-usage-title {
+        margin: 0.35rem 0 0.5rem;
+        padding-bottom: 0.4rem;
+        border-bottom: 1px dashed rgba(62, 134, 53, 0.5);
+        color: #2b5f23;
+      }
+      .intro-block .intro-usage ul.intro-links {
+        margin-bottom: 0;
+      }
+      .btn-apply-note {
+        color: var(--rh-muted);
+        font-size: 0.75rem;
       }
       .intro-block .intro-usage-title {
         margin: 0.9rem 0 0.4rem;
@@ -238,6 +258,332 @@
       }
       .intro-site-meta .sub:last-child {
         margin-bottom: 0;
+      }
+      .view-tabs {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.25rem;
+        border-bottom: 2px solid var(--rh-border);
+        margin-bottom: 1rem;
+      }
+      .view-tab {
+        font: inherit;
+        font-weight: 600;
+        font-size: 0.95rem;
+        padding: 0.6rem 1rem;
+        background: none;
+        border: 0;
+        border-bottom: 3px solid transparent;
+        margin-bottom: -2px;
+        color: var(--rh-muted);
+        cursor: pointer;
+      }
+      .view-tab:hover {
+        color: var(--rh-text);
+      }
+      .view-tab.is-active {
+        color: var(--rh-text);
+        border-bottom-color: var(--rh-red);
+      }
+      .view-tab-all {
+        margin-left: auto;
+        font-weight: 400;
+        font-size: 0.85rem;
+      }
+      .view[hidden] {
+        display: none;
+      }
+      .view-note {
+        color: var(--rh-muted);
+        font-size: 0.85rem;
+        margin: 0.5rem 0 0.75rem;
+      }
+      .search-box input {
+        width: 100%;
+        font: inherit;
+        font-size: 1rem;
+        padding: 0.7rem 0.9rem;
+        border: 2px solid var(--rh-border);
+        border-radius: 6px;
+      }
+      .search-box input:focus {
+        outline: none;
+        border-color: var(--rh-link);
+      }
+      .course-card {
+        border: 1px solid var(--rh-border);
+        border-radius: 6px;
+        padding: 0.75rem 1rem;
+        margin-bottom: 0.65rem;
+      }
+      .cc-head {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: baseline;
+        gap: 0.2rem 0.6rem;
+      }
+      .cc-title {
+        font-weight: 600;
+      }
+      .cc-next {
+        margin-top: 0.35rem;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 0.2rem 0.75rem;
+      }
+      .cc-next .cls-row {
+        padding: 0;
+      }
+      .cls-row {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 0.2rem 0.75rem;
+        padding: 0.3rem 0;
+      }
+      .cls-row .cls-date {
+        font-variant-numeric: tabular-nums;
+        font-weight: 600;
+      }
+      .cls-row .cls-sub {
+        color: var(--rh-muted);
+        font-size: 0.8rem;
+      }
+      .cls-row .cls-course {
+        flex-basis: 100%;
+      }
+      .btn-apply {
+        display: inline-block;
+        padding: 0.2rem 0.7rem;
+        border-radius: 4px;
+        background: var(--rh-link);
+        color: #fff !important;
+        text-decoration: none;
+        font-size: 0.85rem;
+        font-weight: 600;
+      }
+      .btn-apply:hover {
+        background: var(--rh-link-hover);
+      }
+      .course-card details {
+        margin-top: 0.35rem;
+        border-top: 1px dashed var(--rh-border);
+        padding-top: 0.35rem;
+      }
+      .course-card summary {
+        cursor: pointer;
+        font-size: 0.85rem;
+        color: var(--rh-link);
+      }
+      .st {
+        display: inline-block;
+        padding: 0.05rem 0.5rem;
+        border-radius: 999px;
+        font-size: 0.75rem;
+        font-weight: 600;
+        background: #f3e8ff;
+        color: #6b21a8;
+      }
+      .st[data-status="guaranteed-to-run"] {
+        background: #fef3c7;
+        color: #92400e;
+      }
+      .st[data-status="scheduled"] {
+        background: #dbeafe;
+        color: #1e3a8a;
+      }
+      .cal-head {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 1rem;
+      }
+      .cal-title {
+        margin: 0;
+        font-size: 1.15rem;
+        min-width: 8rem;
+        text-align: center;
+      }
+      .cal-nav {
+        font: inherit;
+        font-size: 1.3rem;
+        width: 2.4rem;
+        height: 2.4rem;
+        border: 1px solid var(--rh-border);
+        border-radius: 50%;
+        background: #fff;
+        cursor: pointer;
+      }
+      .cal-nav:disabled {
+        opacity: 0.35;
+        cursor: default;
+      }
+      .cal-grid {
+        display: grid;
+        grid-template-columns: repeat(7, minmax(0, 1fr));
+        gap: 2px;
+        margin-top: 0.75rem;
+      }
+      .cal-dow {
+        text-align: center;
+        font-size: 0.8rem;
+        color: var(--rh-muted);
+        padding: 0.2rem 0;
+      }
+      .cal-cell {
+        font: inherit;
+        text-align: left;
+        min-height: 4.6rem;
+        padding: 0.25rem 0.35rem;
+        background: #fafafa;
+        border: 1px solid var(--rh-border);
+        border-radius: 4px;
+        color: var(--rh-text);
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+      }
+      .cal-cell.is-blank {
+        background: none;
+        border-color: transparent;
+      }
+      .cal-cell.is-past {
+        opacity: 0.45;
+      }
+      .cal-cell.has-cls {
+        background: #fff;
+        cursor: pointer;
+        border-color: var(--rh-link);
+      }
+      .cal-cell.has-cls:hover,
+      .cal-cell.is-selected {
+        background: #e7f1fa;
+      }
+      .cal-cell.is-selected {
+        outline: 2px solid var(--rh-link);
+      }
+      .cal-cell.is-today .cal-d {
+        background: var(--rh-red);
+        color: #fff;
+        border-radius: 50%;
+        padding: 0 0.35rem;
+        align-self: flex-start;
+      }
+      .cal-d {
+        font-size: 0.8rem;
+        font-weight: 600;
+      }
+      .cal-chip {
+        font-size: 0.7rem;
+        line-height: 1.25;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .cal-n {
+        display: none;
+        font-size: 0.75rem;
+        font-weight: 700;
+        color: var(--rh-link);
+      }
+      @media (max-width: 640px) {
+        .cal-cell {
+          min-height: 3rem;
+          padding: 0.15rem 0.2rem;
+        }
+        .cal-chip {
+          display: none;
+        }
+        .cal-n {
+          display: block;
+        }
+        .view-tab {
+          padding: 0.55rem 0.6rem;
+          font-size: 0.85rem;
+        }
+        .view-tab-all {
+          margin-left: 0;
+        }
+      }
+      .view-h {
+        font-size: 1.05rem;
+        margin: 0 0 0.75rem;
+      }
+      #view-stats .analytics-body {
+        padding: 0;
+      }
+      #view-stats .cat-nav {
+        margin-bottom: 0.9rem;
+      }
+      .cal-chip {
+        border-left: 3px solid transparent;
+        padding-left: 0.25rem;
+        border-radius: 2px;
+      }
+      .cal-dots {
+        display: none;
+        flex-wrap: wrap;
+        gap: 2px;
+      }
+      .cal-dots i {
+        width: 0.5rem;
+        height: 0.5rem;
+        border-radius: 50%;
+        display: inline-block;
+      }
+      .sku-dot {
+        display: inline-block;
+        width: 0.7rem;
+        height: 0.7rem;
+        border-radius: 50%;
+        margin-right: 0.3rem;
+        vertical-align: baseline;
+      }
+      .cal-legend {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.3rem 0.5rem;
+        margin-top: 0.6rem;
+      }
+      .cal-legend .lg {
+        font-size: 0.75rem;
+        padding: 0.1rem 0.5rem;
+        border-radius: 999px;
+        border-left: 3px solid transparent;
+      }
+      @media (max-width: 640px) {
+        .cal-dots {
+          display: flex;
+        }
+      }
+      /* お知らせ／使い方／ご注意: タイトル・本文のサイズを統一 */
+      .intro-block .intro-news-title,
+      .intro-block .intro-usage .intro-usage-title,
+      .intro-block .intro-notice-title {
+        margin: 0.35rem 0 0.5rem;
+        padding-bottom: 0.4rem;
+        font-size: 1rem;
+        font-weight: 700;
+        letter-spacing: 0;
+        line-height: 1.4;
+      }
+      .intro-block .intro-news-list,
+      .intro-block .intro-usage ul.intro-links,
+      .intro-block .intro-notice-body {
+        font-size: 0.95rem;
+        line-height: 1.6;
+      }
+      .intro-block .intro-news,
+      .intro-block .intro-usage,
+      .intro-block .intro-notice {
+        padding: 0.4rem 0.85rem 0.75rem;
+      }
+      .intro-block .intro-lead {
+        margin: 0 0 0.5rem;
+        font-size: 1.05rem;
+        line-height: 1.6;
+        color: var(--rh-text);
       }
       .month-block {
         margin-bottom: 2rem;
@@ -663,48 +1009,7 @@
     <div class="rh-hero">
       <div class="rh-page-inner">
         <div class="intro-block">
-          <p class="sub">Red Hat 公式トレーニング（日本向け）の開催予定を一覧で掲載しています。</p>
-          <p class="sub hero-more">お知らせ・使い方・このサイトについては <a href="#site-info">ページ下部</a> をご覧ください。</p>
-          <aside class="intro-notice" aria-label="ご注意">
-            <p class="intro-notice-title">ご注意</p>
-            <p class="intro-notice-body">
-              満席などで、<strong>Class ID</strong> のリンク先（申し込みページ）が開けないことがあります。<br />
-              表示が古い場合は、<a
-                href="https://github.com/Lab8010/redhat-training-schedule/tree/main/docs"
-                target="_blank"
-                rel="noopener noreferrer"
-                >GitHub 上の CSV</a>を正としてご確認ください。
-            </p>
-          </aside>
-        </div>
-      </div>
-    </div>
-    <main class="rh-main" id="main-content">
-      <div class="rh-page-inner">
-        <details class="analytics" id="analytics">
-          <summary>📊 開催頻度グラフ（どのコースがどれくらい開催されるか）</summary>
-          <div class="analytics-body">
-            <div class="an-controls">
-              <label>集計年
-                <select id="an-year"></select>
-              </label>
-              <label><input type="checkbox" id="an-cancelled" /> Cancelled を含める</label>
-              <label><input type="checkbox" id="an-past" checked /> 終了済みクラスを含める</label>
-            </div>
-            <p class="an-note">棒をクリックすると、そのコースだけに下の一覧を絞り込めます。「レア」は集計範囲で 1 回しか開催されないコースです。製品カテゴリの選択も反映されます。</p>
-            <div id="an-bars"></div>
-            <h3 class="an-h">月 × コース（開催数ヒートマップ）</h3>
-            <div id="an-heat"></div>
-          </div>
-        </details>
-        <nav id="cat-nav" class="cat-nav" hidden aria-label="製品カテゴリの絞り込み"></nav>
-        <nav id="month-nav" class="month-nav" hidden aria-label="表示月の切り替え"></nav>
-        <div id="app">読み込み中…</div>
-      </div>
-    </main>
-    <footer class="rh-footer" id="site-info">
-      <div class="rh-page-inner">
-        <div class="intro-block">
+          <p class="intro-lead">このサイトは、<strong>Red Hat Learning Subscription Premium 及び Course 利用者様向けの、ライブバーチャルクラス（LVC）の予定を一元的に確認するためのサイト</strong>です。</p>
           <aside class="intro-news" aria-label="お知らせ">
             <p class="intro-news-title">📢 お知らせ <span class="intro-news-date">（掲載日時: 2026/10/19 15:27 JST）</span></p>
             <ul class="intro-news-list">
@@ -725,20 +1030,39 @@
                 >
               </li>
               <li>
-                <strong>各コースの開講状況がひと目でわかる<a href="#analytics" data-open-analytics="1">「開催頻度グラフ」</a>を追加しました。</strong>
+                <strong>各コースの開講状況がひと目でわかる<a href="#stats" data-open-analytics="1">「開催頻度グラフ」</a>を追加しました。</strong>
                 開催が多いコース・珍しいコースを棒グラフで比較でき、製品カテゴリでの絞り込みにも対応しています。
               </li>
             </ul>
           </aside>
-          <h2 class="intro-usage-title">【このサイトの使い方】</h2>
-          <ul class="intro-links">
-            <li>
-              <strong>コースコード</strong>のリンクをクリックすると、そのトレーニングコースの概要ページにアクセスできます。
-            </li>
-            <li>
-              <strong>Class ID</strong>（旧 Offering ID）のリンクをクリックすると、そのトレーニングセッションの申し込み用ページに移動します。
-            </li>
-          </ul>
+          <aside class="intro-usage" aria-label="このサイトの使い方">
+            <h2 class="intro-usage-title">📖 このサイトの使い方</h2>
+            <ul class="intro-links">
+              <li>
+                <strong>座席の確保について:</strong> クラスのための座席確保は、<strong>このページからはできません</strong>。手順は下の<a href="#usage-video">参考動画（YouTube）</a>で解説していますので、ご覧ください。
+              </li>
+              <li>
+                <strong>活用のポイント:</strong> <strong>開催予定回を長期的に把握</strong>できます。学習計画や受講回の検討にご活用ください。
+              </li>
+              <li>
+                <strong>コースコード</strong>のリンクをクリックすると、そのトレーニングコースの概要ページにアクセスできます。
+              </li>
+              <li>
+                <strong>Class ID</strong>（旧 Offering ID）のリンクをクリックすると、Red Hat LMS でその Class ID を検索します（現在リンク切れのため修正中）。
+              </li>
+            </ul>
+          </aside>
+          <aside class="intro-notice" aria-label="ご注意">
+            <p class="intro-notice-title">⚠️ ご注意</p>
+            <p class="intro-notice-body">
+              満席などで、<strong>Class ID</strong> のリンク先（申し込みページ）が開けないことがあります。<br />
+              表示が古い場合は、<a
+                href="https://github.com/Lab8010/redhat-training-schedule/tree/main/docs"
+                target="_blank"
+                rel="noopener noreferrer"
+                >GitHub 上の CSV</a>を正としてご確認ください。
+            </p>
+          </aside>
           <p class="sub">
             2026年1月より、トレーニングの購入は年間サブスクリプション「Red Hat Learning Subscription（RHLS）」が基本です。詳細は
             <a
@@ -748,7 +1072,7 @@
               >こちら</a
             >をご覧ください。
           </p>
-          <section class="video-embed-block" aria-labelledby="embedded-youtube-title">
+          <section class="video-embed-block" id="usage-video" aria-labelledby="embedded-youtube-title">
             <h2 id="embedded-youtube-title" class="video-embed-title">参考動画（YouTube）</h2>
             <p class="sub video-embed-note">
               以下のプレーヤーからページ内で再生できます（
@@ -789,6 +1113,67 @@
               </p>
             </noscript>
           </section>
+        </div>
+      </div>
+    </div>
+    <main class="rh-main" id="main-content">
+      <div class="rh-page-inner">
+        <div class="view-tabs" role="tablist" aria-label="探し方の切り替え">
+          <button type="button" class="view-tab" role="tab" data-view="date">📅 日付から探す</button>
+          <button type="button" class="view-tab" role="tab" data-view="course">🔍 コースから探す</button>
+          <button type="button" class="view-tab" role="tab" data-view="stats">📊 開催頻度</button>
+          <button type="button" class="view-tab view-tab-all" role="tab" data-view="all">📋 全件一覧（詳細）</button>
+        </div>
+
+        <section id="view-course" class="view" aria-label="コースから探す">
+          <div class="search-box">
+            <input type="search" id="course-q" placeholder="コースコードまたは名称で検索（例: RH294、OpenShift、Ansible）" aria-label="コースを検索" autocomplete="off" />
+          </div>
+          <p id="course-count" class="view-note"></p>
+          <div id="course-list">読み込み中…</div>
+        </section>
+
+        <section id="view-date" class="view" aria-label="日付から探す" hidden>
+          <div class="cal-head">
+            <button type="button" class="cal-nav" id="cal-prev" aria-label="前の月">‹</button>
+            <h2 id="cal-title" class="cal-title"></h2>
+            <button type="button" class="cal-nav" id="cal-next" aria-label="次の月">›</button>
+          </div>
+          <div id="cal-grid" class="cal-grid"></div>
+          <div id="cal-legend" class="cal-legend"></div>
+          <p class="view-note">開催のある日をクリックすると、その日のクラスを表示します。</p>
+          <div id="cal-list"></div>
+        </section>
+
+        <section id="view-stats" class="view" aria-label="開催頻度" hidden>
+          <h2 class="view-h">どのコースがどれくらい開催されるか</h2>
+          <nav id="an-cat-nav" class="cat-nav" hidden aria-label="製品カテゴリの絞り込み"></nav>
+          <div class="analytics-body">
+            <div class="an-controls">
+              <label>集計年
+                <select id="an-year"></select>
+              </label>
+              <label><input type="checkbox" id="an-cancelled" /> Cancelled を含める</label>
+              <label><input type="checkbox" id="an-past" checked /> 終了済みクラスを含める</label>
+            </div>
+            <p class="an-note">棒をクリックすると、そのコースの開催日程を「コースから探す」で表示します。「レア」は集計範囲で 1 回しか開催されないコースです。</p>
+            <div id="an-bars"></div>
+            <h3 class="an-h">月 × コース（開催数ヒートマップ）</h3>
+            <div id="an-heat"></div>
+          </div>
+        </section>
+
+        <div id="view-all" class="view" hidden>
+        <p class="view-note">すべてのクラスを表で確認できます。製品カテゴリ・月での絞り込みができます。</p>
+        <nav id="cat-nav" class="cat-nav" hidden aria-label="製品カテゴリの絞り込み"></nav>
+        <nav id="month-nav" class="month-nav" hidden aria-label="表示月の切り替え"></nav>
+        <div id="app">読み込み中…</div>
+        </div>
+      </div>
+    </main>
+    <footer class="rh-footer" id="site-info">
+      <div class="rh-page-inner">
+        <div class="intro-block">
           <div class="intro-site-meta">
             <p class="sub">
               このページのソースコードと <code>docs/data_YYYY.csv</code> は、GitHub の
@@ -882,6 +1267,12 @@
           chartCancelled: false,
           chartPast: true,
           data: [],
+          view: "course",
+          query: "",
+          /** @type {string|null} カレンダー表示中の月 YYYY-MM */
+          calMonth: null,
+          /** @type {string|null} カレンダーで選択中の日 YYYY-MM-DD */
+          calDay: null,
           /** @type {string|null} YYYY-MM で 1 ヶ月だけ表示。null はすべて */
           selectedMonthKey: null,
           /**
@@ -1434,6 +1825,9 @@
             if (state.selectedMonthKey) {
               q.set("month", state.selectedMonthKey);
             }
+            if (state.query.trim()) {
+              q.set("q", state.query.trim());
+            }
             var qs = q.toString();
             history.replaceState(null, "", location.pathname + (qs ? "?" + qs : "") + location.hash);
           } catch (e) {}
@@ -1451,6 +1845,7 @@
             if (/^[A-Z0-9]+$/.test(co)) {
               state.selectedCourse = co;
             }
+            state.query = (q.get("q") || "").slice(0, 60);
             var mo = q.get("month") || "";
             if (/^\d{4}-\d{2}$/.test(mo)) {
               state.selectedMonthKey = mo;
@@ -1468,9 +1863,14 @@
           var cats = CAT_ORDER.filter(function (c) {
             return counts[c];
           });
+          var nav2 = document.getElementById("an-cat-nav");
           if (cats.length === 0) {
             nav.hidden = true;
             nav.innerHTML = "";
+            if (nav2) {
+              nav2.hidden = true;
+              nav2.innerHTML = "";
+            }
             return;
           }
           nav.hidden = false;
@@ -1504,6 +1904,10 @@
               '<button type="button" class="nav-clear" data-cat-clear="1" title="製品・コースの絞り込みをすべて解除">✕ 条件をクリア</button>';
           }
           nav.innerHTML = html;
+          if (nav2) {
+            nav2.hidden = false;
+            nav2.innerHTML = html;
+          }
         }
 
         function daysUntil(ymd) {
@@ -1689,11 +2093,378 @@
           heatEl.innerHTML = hm;
         }
 
+
+        /* ===== タブ表示（コース／日付／全件） ===== */
+        var VIEWS = ["date", "course", "stats", "all"];
+        var DOW = ["日", "月", "火", "水", "木", "金", "土"];
+
+        /** コースコード → 色相（全クラスのコードを並べて黄金角で割り当て。月をまたいでも固定） */
+        var skuHue = {};
+        function buildSkuColors() {
+          var seen = {};
+          state.raw.forEach(function (it) {
+            seen[it.base] = true;
+          });
+          Object.keys(seen)
+            .sort()
+            .forEach(function (b, i) {
+              skuHue[b] = Math.round((i * 137.508) % 360);
+            });
+        }
+
+        function skuStyle(base) {
+          var h = skuHue[base];
+          if (h == null) {
+            h = 0;
+          }
+          return (
+            "background:hsl(" + h + ",75%,93%);border-left-color:hsl(" + h + ",65%,42%);color:hsl(" + h + ",60%,22%)"
+          );
+        }
+
+        function skuDot(base) {
+          var h = skuHue[base] == null ? 0 : skuHue[base];
+          return '<span class="sku-dot" style="background:hsl(' + h + ',65%,42%)"></span>';
+        }
+
+        /** 申込可能なクラス（終了済み・Cancelled を除く）。state.data は終了済み除外済み */
+        function bookableItems() {
+          return state.data.filter(function (it) {
+            return statusSlug(it.status) !== "cancelled";
+          });
+        }
+
+        function fmtMd(d) {
+          return d.getMonth() + 1 + "/" + d.getDate() + "(" + DOW[d.getDay()] + ")";
+        }
+
+        function fmtRange(it) {
+          var a = parseYmdToLocalDate(it.start);
+          var b = parseYmdToLocalDate(it.end) || a;
+          if (!a) {
+            return escapeHtml(it.start || "日付不明");
+          }
+          var out = a.getFullYear() + "/" + fmtMd(a);
+          if (b && b.getTime() !== a.getTime()) {
+            out += "〜" + (b.getFullYear() !== a.getFullYear() ? b.getFullYear() + "/" : "") + fmtMd(b);
+          }
+          return out;
+        }
+
+        function statusLabel(status) {
+          var slug = statusSlug(status);
+          if (slug === "guaranteed-to-run") {
+            return "開催確定";
+          }
+          if (slug === "scheduled") {
+            return "受付中";
+          }
+          return status || "";
+        }
+
+        function applyLinkHtml(oid) {
+          var id = String(oid || "").trim();
+          if (!id) {
+            return "";
+          }
+          return (
+            '<a class="btn-apply" href="' +
+            escapeHtml(lmsOfferingSearchUrl(id)) +
+            '" target="_blank" rel="noopener noreferrer" title="Red Hat LMS で Class ID ' +
+            escapeHtml(id) +
+            ' を検索します（現在リンク切れのため修正中）">この回の RHLS Course を購入する</a>' +
+            '<span class="btn-apply-note">（現在リンク切れのため修正中）</span>'
+          );
+        }
+
+        function skuLinkHtml(sku) {
+          var raw = String(sku || "").trim();
+          var url = redHatTrainingCourseUrl(raw);
+          if (!url) {
+            return escapeHtml(raw);
+          }
+          return (
+            '<a class="sku-link" href="' +
+            escapeHtml(url) +
+            '" target="_blank" rel="noopener noreferrer" title="' +
+            escapeHtml(skuLinkTitle(raw)) +
+            '">' +
+            escapeHtml(raw) +
+            "</a>"
+          );
+        }
+
+        function classRowHtml(it, withCourse) {
+          var h = '<div class="cls-row">';
+          if (withCourse) {
+            h +=
+              '<div class="cls-course">' +
+              skuDot(it.base) +
+              skuLinkHtml(it.sku) +
+              " " +
+              escapeHtml(courseTitle(it.name, it.base)) +
+              "</div>";
+          }
+          h += '<span class="cls-date">' + fmtRange(it) + "</span>";
+          h +=
+            '<span class="st" data-status="' +
+            knownStatusRowAttr(statusSlug(it.status)) +
+            '">' +
+            escapeHtml(statusLabel(it.status)) +
+            "</span>";
+          if (it.startT) {
+            h += '<span class="cls-sub">' + escapeHtml(it.startT + " – " + (it.endT || "")) + "</span>";
+          }
+          h += applyLinkHtml(it.oid) + "</div>";
+          return h;
+        }
+
+        /* ---- コースから探す ---- */
+        function renderCourseView() {
+          var listEl = document.getElementById("course-list");
+          var countEl = document.getElementById("course-count");
+          var q = state.query.trim().toLowerCase();
+          var groups = {};
+          var order = [];
+          bookableItems().forEach(function (it) {
+            var hay = (it.sku + " " + it.base + " " + it.name).toLowerCase();
+            if (q && hay.indexOf(q) === -1) {
+              return;
+            }
+            if (!groups[it.base]) {
+              groups[it.base] = [];
+              order.push(it.base);
+            }
+            groups[it.base].push(it);
+          });
+          if (order.length === 0) {
+            countEl.textContent = "";
+            listEl.innerHTML =
+              '<p class="empty-filter">' +
+              (q ? "「" + escapeHtml(state.query.trim()) + "」に一致するコースはありません。" : "開催予定のクラスがありません。") +
+              "</p>";
+            return;
+          }
+          countEl.textContent = order.length + " コース（次回開催が近い順）";
+          var html = "";
+          order.forEach(function (base) {
+            var list = groups[base];
+            var first = list[0];
+            var n = daysUntil(first.start);
+            html += '<div class="course-card"><div class="cc-head">' + skuDot(base) + "<strong>" + skuLinkHtml(first.sku) + "</strong>";
+            html += '<span class="cc-title">' + escapeHtml(courseTitle(first.name, base)) + "</span></div>";
+            html += '<div class="cc-next"><span class="cls-sub">次回</span>' + classRowHtml(first, false);
+            if (n != null && n >= 0) {
+              html += '<span class="cls-sub">' + (n === 0 ? "本日開始" : "あと " + n + " 日") + "</span>";
+            }
+            html += "</div>";
+            if (list.length > 1) {
+              html += "<details><summary>他 " + (list.length - 1) + " 回の開催</summary>";
+              for (var i = 1; i < list.length; i++) {
+                html += classRowHtml(list[i], false);
+              }
+              html += "</details>";
+            }
+            html += "</div>";
+          });
+          listEl.innerHTML = html;
+        }
+
+        /* ---- 日付から探す ---- */
+        function ymKey(d) {
+          return d.getFullYear() + "-" + pad2(d.getMonth() + 1);
+        }
+
+        function ymdKey(d) {
+          return ymKey(d) + "-" + pad2(d.getDate());
+        }
+
+        function classDays(it) {
+          var a = parseYmdToLocalDate(it.start);
+          var b = parseYmdToLocalDate(it.end) || a;
+          var days = [];
+          if (!a) {
+            return days;
+          }
+          for (var d = new Date(a); d <= b && days.length < 60; d.setDate(d.getDate() + 1)) {
+            days.push(ymdKey(d));
+          }
+          return days;
+        }
+
+        function calMonthBounds(items) {
+          var min = null;
+          var max = null;
+          items.forEach(function (it) {
+            classDays(it).forEach(function (k) {
+              var m = k.slice(0, 7);
+              if (min === null || m < min) {
+                min = m;
+              }
+              if (max === null || m > max) {
+                max = m;
+              }
+            });
+          });
+          return { min: min, max: max };
+        }
+
+        function shiftMonth(key, delta) {
+          var p = key.split("-");
+          return ymKey(new Date(parseInt(p[0], 10), parseInt(p[1], 10) - 1 + delta, 1));
+        }
+
+        function renderDateView() {
+          var items = bookableItems();
+          var grid = document.getElementById("cal-grid");
+          var listEl = document.getElementById("cal-list");
+          if (items.length === 0) {
+            grid.innerHTML = "";
+            document.getElementById("cal-legend").innerHTML = "";
+            document.getElementById("cal-title").textContent = "";
+            listEl.innerHTML = '<p class="empty-filter">開催予定のクラスがありません。</p>';
+            return;
+          }
+          var bounds = calMonthBounds(items);
+          var nowKey = ymKey(startOfToday());
+          if (!state.calMonth) {
+            state.calMonth = bounds.min > nowKey ? bounds.min : nowKey;
+          }
+          if (state.calMonth < bounds.min) {
+            state.calMonth = bounds.min;
+          }
+          if (state.calMonth > bounds.max) {
+            state.calMonth = bounds.max;
+          }
+          var ym = state.calMonth;
+          var py = parseInt(ym.slice(0, 4), 10);
+          var pm = parseInt(ym.slice(5, 7), 10);
+          document.getElementById("cal-title").textContent = py + "年" + pm + "月";
+          document.getElementById("cal-prev").disabled = ym <= bounds.min;
+          document.getElementById("cal-next").disabled = ym >= bounds.max;
+
+          var byDay = {};
+          items.forEach(function (it) {
+            classDays(it).forEach(function (k) {
+              (byDay[k] = byDay[k] || []).push(it);
+            });
+          });
+          var today = ymdKey(startOfToday());
+          var firstDow = new Date(py, pm - 1, 1).getDay();
+          var dim = new Date(py, pm, 0).getDate();
+          var html = DOW.map(function (w) {
+            return '<div class="cal-dow">' + w + "</div>";
+          }).join("");
+          for (var b = 0; b < firstDow; b++) {
+            html += '<div class="cal-cell is-blank"></div>';
+          }
+          for (var d = 1; d <= dim; d++) {
+            var key = ym + "-" + pad2(d);
+            var arr = byDay[key] || [];
+            var cls = "cal-cell" + (key < today ? " is-past" : "") + (key === today ? " is-today" : "");
+            if (arr.length) {
+              cls += " has-cls" + (state.calDay === key ? " is-selected" : "");
+              html += '<button type="button" class="' + cls + '" data-day="' + key + '"><span class="cal-d">' + d + "</span>";
+              var seen = {};
+              var codes = [];
+              arr.forEach(function (it) {
+                if (!seen[it.base]) {
+                  seen[it.base] = true;
+                  codes.push(it.base);
+                }
+              });
+              codes.slice(0, 2).forEach(function (c) {
+                html += '<span class="cal-chip" style="' + skuStyle(c) + '">' + escapeHtml(c) + "</span>";
+              });
+              if (codes.length > 2) {
+                html += '<span class="cal-chip">他 ' + (codes.length - 2) + "</span>";
+              }
+              html += '<span class="cal-dots">';
+              codes.slice(0, 6).forEach(function (c) {
+                html += '<i style="background:hsl(' + (skuHue[c] || 0) + ',65%,42%)"></i>';
+              });
+              html += "</span></button>";
+            } else {
+              html += '<div class="' + cls + '"><span class="cal-d">' + d + "</span></div>";
+            }
+          }
+          grid.innerHTML = html;
+
+          var lgSeen = {};
+          var lgCodes = [];
+          items.forEach(function (it) {
+            if (!lgSeen[it.base] && classDays(it).some(function (k) { return k.slice(0, 7) === ym; })) {
+              lgSeen[it.base] = it;
+              lgCodes.push(it.base);
+            }
+          });
+          lgCodes.sort();
+          document.getElementById("cal-legend").innerHTML = lgCodes
+            .map(function (c) {
+              return (
+                '<span class="lg" style="' + skuStyle(c) + '" title="' + escapeHtml(courseTitle(lgSeen[c].name, c)) + '">' +
+                escapeHtml(c) + "</span>"
+              );
+            })
+            .join("");
+
+          var shown;
+          var heading;
+          if (state.calDay && state.calDay.slice(0, 7) === ym && byDay[state.calDay]) {
+            shown = byDay[state.calDay];
+            var dd = parseYmdToLocalDate(state.calDay);
+            heading = fmtMd(dd) + " に開催中のクラス";
+          } else {
+            state.calDay = null;
+            shown = items.filter(function (it) {
+              return classDays(it).some(function (k) {
+                return k.slice(0, 7) === ym;
+              });
+            });
+            heading = pm + "月に開催されるクラス（" + shown.length + " 件）";
+          }
+          var lh = "<h3 class=\"an-h\">" + escapeHtml(heading);
+          if (state.calDay) {
+            lh += ' <button type="button" class="nav-clear" data-day-clear="1">月全体に戻す</button>';
+          }
+          lh += "</h3>";
+          if (shown.length === 0) {
+            lh += '<p class="empty-filter">この月に開催されるクラスはありません。</p>';
+          }
+          shown.forEach(function (it) {
+            lh += '<div class="course-card">' + classRowHtml(it, true) + "</div>";
+          });
+          listEl.innerHTML = lh;
+        }
+
+        /* ---- タブ切り替え ---- */
+        function setView(v) {
+          if (VIEWS.indexOf(v) === -1) {
+            v = "course";
+          }
+          state.view = v;
+          VIEWS.forEach(function (x) {
+            document.getElementById("view-" + x).hidden = x !== v;
+          });
+          Array.prototype.forEach.call(document.querySelectorAll(".view-tab"), function (t) {
+            var on = t.getAttribute("data-view") === v;
+            t.classList.toggle("is-active", on);
+            t.setAttribute("aria-selected", on ? "true" : "false");
+          });
+        }
+
+        function viewFromHash() {
+          var h = location.hash.replace("#", "");
+          return VIEWS.indexOf(h) !== -1 ? h : null;
+        }
+
         function renderAll() {
           renderCatNav();
           renderMonthNav();
           renderTables();
           renderAnalytics();
+          renderCourseView();
+          renderDateView();
           syncUrl();
         }
 
@@ -1840,6 +2611,7 @@
           });
 
           state.raw = data;
+          buildSkuColors();
           data = data.filter(isNotPastRow);
 
           if (data.length === 0) {
@@ -1849,6 +2621,8 @@
             document.getElementById("month-nav").innerHTML = "";
             renderCatNav();
             renderAnalytics();
+            renderCourseView();
+            renderDateView();
             document.getElementById("app").innerHTML =
               '<p class="empty-filter">本日以降に終了予定のクラスがありません（掲載はすべて過去の終了済みです）。</p>';
             return;
@@ -1867,12 +2641,29 @@
         }
 
         document.addEventListener("click", function (e) {
+          var tab = e.target.closest("[data-view]");
+          if (tab) {
+            location.hash = tab.getAttribute("data-view");
+            return;
+          }
+          var dayBtn = e.target.closest("[data-day]");
+          if (dayBtn) {
+            var dk = dayBtn.getAttribute("data-day");
+            state.calDay = state.calDay === dk ? null : dk;
+            renderDateView();
+            return;
+          }
+          if (e.target.closest("[data-day-clear]")) {
+            state.calDay = null;
+            renderDateView();
+            return;
+          }
           var anLink = e.target.closest("[data-open-analytics]");
           if (anLink) {
             e.preventDefault();
-            var det = document.getElementById("analytics");
-            det.open = true;
-            det.scrollIntoView({ behavior: "smooth", block: "start" });
+            location.hash = "stats";
+            setView("stats");
+            window.scrollTo({ top: 0, behavior: "smooth" });
             return;
           }
           var catBtn = e.target.closest("[data-cat], [data-cat-all], [data-cat-clear], [data-course-clear]");
@@ -1898,15 +2689,13 @@
           }
           var barBtn = e.target.closest("[data-course]");
           if (barBtn) {
-            var cc = barBtn.getAttribute("data-course");
-            state.selectedCourse = state.selectedCourse === cc ? null : cc;
-            renderAll();
-            if (state.selectedCourse) {
-              var navEl = document.getElementById("cat-nav");
-              if (navEl && navEl.scrollIntoView) {
-                navEl.scrollIntoView({ behavior: "smooth", block: "start" });
-              }
-            }
+            state.query = barBtn.getAttribute("data-course");
+            document.getElementById("course-q").value = state.query;
+            location.hash = "course";
+            setView("course");
+            renderCourseView();
+            syncUrl();
+            window.scrollTo({ top: 0, behavior: "smooth" });
             return;
           }
           var monthBtn = e.target.closest("[data-month-key], [data-month-all]");
@@ -1934,7 +2723,38 @@
           state.chartPast = e.target.checked;
           renderAnalytics();
         });
+        document.getElementById("course-q").addEventListener("input", function (e) {
+          state.query = e.target.value;
+          renderCourseView();
+          syncUrl();
+        });
+        document.getElementById("cal-prev").addEventListener("click", function () {
+          state.calDay = null;
+          state.calMonth = shiftMonth(state.calMonth, -1);
+          renderDateView();
+        });
+        document.getElementById("cal-next").addEventListener("click", function () {
+          state.calDay = null;
+          state.calMonth = shiftMonth(state.calMonth, 1);
+          renderDateView();
+        });
+        window.addEventListener("hashchange", function () {
+          var v = viewFromHash();
+          if (v) {
+            setView(v);
+            syncUrl();
+          }
+        });
         restoreFromUrl();
+        document.getElementById("course-q").value = state.query;
+        setView(
+          viewFromHash() ||
+            (state.query.trim()
+              ? "course"
+              : state.selectedCourse || state.selectedMonthKey || Object.keys(state.selectedCats).length
+              ? "all"
+              : "date")
+        );
 
         Promise.all([loadCertificationsTrainingUrls(), fetchAllCsvPayloads()])
           .then(function (pair) {
