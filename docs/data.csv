@@ -1,6 +1,4 @@
 ﻿Start Date,End Date,Start Time,End Time,コースコード,Offering Name,Class ID,Class Status
-2026/11/09,2026/11/12,09:30 JST,17:30 JST,DO280VT,Red Hat OpenShift Administration II: Configuring a Production Cluster (DO280VT),91132789,Guaranteed To Run
-2026/11/09,2026/11/13,09:30 JST,17:30 JST,RH199VT,RHCSA Rapid Track Course (RH199VT),91247264,Scheduled
 2026/11/16,2026/11/20,09:30 JST,17:30 JST,RH124VT,Red Hat System Administration I (RH124VT) (RHEL 10),91247198,Scheduled
 2026/11/24,2026/11/27,09:30 JST,17:30 JST,DO180VT,Red Hat OpenShift Administration I: Operating a Production Cluster (DO180VT),91154924,Scheduled
 2026/11/24,2026/11/27,09:30 JST,17:30 JST,DO288VT,Red Hat OpenShift Developer II: Building and Deploying Cloud-native Applications (DO288VT),91247140,Scheduled
