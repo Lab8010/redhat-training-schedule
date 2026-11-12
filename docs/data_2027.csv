@@ -7,8 +7,8 @@
 2027/01/25,2027/01/28,09:30 JST,17:30 JST,DO280VT,Red Hat OpenShift Administration II: Configuring a Production Cluster (DO280VT),95251579,Scheduled
 2027/01/25,2027/01/29,09:30 JST,17:30 JST,RH124VT,Red Hat System Administration I (RH124VT),95251713,Scheduled
 2027/02/01,2027/02/04,09:30 JST,17:30 JST,AU294VT,Red Hat Enterprise Linux Automation with Ansible (AU294VT),95251300,Scheduled
-2027/02/04,2027/02/05,09:30 JST,17:30 JST,CL170VT,OpenStack Administration: Control Plane Management (CL170VT),95251366,Scheduled
 2027/02/01,2027/02/05,09:30 JST,17:30 JST,RH134VT,Red Hat System Administration II (RH134VT),95251808,Scheduled
+2027/02/04,2027/02/05,09:30 JST,17:30 JST,CL170VT,OpenStack Administration: Control Plane Management (CL170VT),95251366,Scheduled
 2027/02/08,2027/02/10,09:30 JST,17:30 JST,DO156VT,Red Hat OpenShift Virtualization Administration I: Operating Virtual Machines Virtual Training (DO156VT),95251388,Scheduled
 2027/02/15,2027/02/18,09:30 JST,17:30 JST,DO180VT,Red Hat OpenShift Administration I: Operating a Production Cluster (DO180VT),95251434,Scheduled
 2027/02/15,2027/02/18,09:30 JST,17:30 JST,DO380VT,Red Hat OpenShift Administration III: Scaling Deployments in the Enterprise (DO380VT),95251651,Scheduled
@@ -39,6 +39,7 @@
 2027/04/19,2027/04/23,09:30 JST,17:30 JST,RH199VT,RHCSA Rapid Track Course (RH199VT),95251852,Scheduled
 2027/04/26,2027/04/28,09:30 JST,17:30 JST,DO188VT,Red Hat OpenShift Development I: Introduction to Containers with Podman (DO188VT),95251479,Scheduled
 2027/05/10,2027/05/14,09:30 JST,17:30 JST,RH124VT,Red Hat System Administration I (RH124VT),95251691,Scheduled
+2027/05/10,2027/05/12,09:30 JST,17:30 JST,DO156VT,Red Hat OpenShift Virtualization Administration I: Operating Virtual Machines Virtual Training (DO156VT ),95394469,Scheduled
 2027/05/17,2027/05/20,09:30 JST,17:30 JST,AU294VT,Red Hat Enterprise Linux Automation with Ansible (AU294VT),95251348,Scheduled
 2027/05/17,2027/05/20,09:30 JST,17:30 JST,DO180VT,Red Hat OpenShift Administration I: Operating a Production Cluster (DO180VT),95251425,Scheduled
 2027/05/17,2027/05/20,09:30 JST,17:30 JST,DO280VT,Red Hat OpenShift Administration II: Configuring a Production Cluster (DO280VT),95251588,Scheduled
@@ -49,11 +50,11 @@
 2027/06/07,2027/06/10,09:30 JST,17:30 JST,AU294VT,Red Hat Enterprise Linux Automation with Ansible (AU294VT),95251339,Scheduled
 2027/06/07,2027/06/09,09:30 JST,17:30 JST,DO156VT,Red Hat OpenShift Virtualization Administration I: Operating Virtual Machines Virtual Training (DO156VT),95251409,Scheduled
 2027/06/07,2027/06/10,09:30 JST,17:30 JST,DO180VT,Red Hat OpenShift Administration I: Operating a Production Cluster (DO180VT),95251443,Scheduled
-2027/06/17,2027/06/18,09:30 JST,17:30 JST,CL170VT,OpenStack Administration: Control Plane Management (CL170VT),95251376,Scheduled
 2027/06/14,2027/06/17,09:30 JST,17:30 JST,DO180VT,Red Hat OpenShift Administration I: Operating a Production Cluster (DO180VT),95251461,Scheduled
 2027/06/14,2027/06/16,09:30 JST,17:30 JST,DO188VT,Red Hat OpenShift Development I: Introduction to Containers with Podman (DO188VT),95251493,Scheduled
 2027/06/14,2027/06/18,09:30 JST,17:30 JST,RH124VT,Red Hat System Administration I (RH124VT),95251702,Scheduled
 2027/06/14,2027/06/18,09:30 JST,17:30 JST,RH199VT,RHCSA Rapid Track Course (RH199VT),95251885,Scheduled
+2027/06/17,2027/06/18,09:30 JST,17:30 JST,CL170VT,OpenStack Administration: Control Plane Management (CL170VT),95251376,Scheduled
 2027/06/21,2027/06/23,09:30 JST,17:30 JST,DO256VT,Red Hat OpenShift Virtualization Administration II: Configuring Production Virtual Machines (DO256VT),95251563,Scheduled
 2027/06/21,2027/06/24,09:30 JST,17:30 JST,DO280VT,Red Hat OpenShift Administration II: Configuring a Production Cluster (DO280VT),95251597,Scheduled
 2027/06/21,2027/06/24,09:30 JST,17:30 JST,DO288VT,Red Hat OpenShift Developer II: Building and Deploying Cloud-native Applications (DO288VT),95251624,Scheduled
@@ -62,4 +63,3 @@
 2027/06/28,2027/07/02,09:30 JST,17:30 JST,RH134VT,Red Hat System Administration II (RH134VT),95251746,Scheduled
 2027/07/12,2027/07/15,09:30 JST,17:30 JST,DO180VT,Red Hat OpenShift Administration I: Operating a Production Cluster (DO180VT),95251470,Scheduled
 2027/07/26,2027/07/29,09:30 JST,17:30 JST,DO280VT,Red Hat OpenShift Administration II: Configuring a Production Cluster (DO280VT),95251606,Scheduled
-2027/05/10,2027/05/12,09:30 JST,17:30 JST,DO156VT,Red Hat OpenShift Virtualization Administration I: Operating Virtual Machines Virtual Training (DO156VT ),95394469,Scheduled
