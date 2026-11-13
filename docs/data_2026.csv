@@ -1,6 +1,6 @@
 ﻿Start Date,End Date,Start Time,End Time,コースコード,Offering Name,Class ID,Class Status
-2026/11/19,2026/11/27,09:30 JST,17:30 JST,PTD12,Red Hat Private Training - Red Hat Enterprise Linux Automation with Ansible (AU294) - Japanese,95744254,Scheduled
-2026/11/24,2026/11/27,09:30 JST,17:30 JST,DO180VT,Red Hat OpenShift Administration I: Operating a Production Cluster (DO180VT),91154924,Scheduled
+2026/11/19,2026/11/27,09:30 JST,17:30 JST,PTD12,Red Hat Private Training - Red Hat Enterprise Linux Automation with Ansible (AU294) - Japanese,95744254,Guaranteed To Run
+2026/11/24,2026/11/27,09:30 JST,17:30 JST,DO180VT,Red Hat OpenShift Administration I: Operating a Production Cluster (DO180VT),91154924,Guaranteed To Run
 2026/11/24,2026/11/27,09:30 JST,17:30 JST,DO288VT,Red Hat OpenShift Developer II: Building and Deploying Cloud-native Applications (DO288VT),91247140,Scheduled
 2026/11/30,2026/12/04,09:30 JST,17:30 JST,RH134VT,Red Hat System Administration II (RH134VT) (RHEL 10),91247231,Scheduled
 2026/12/07,2026/12/10,09:30 JST,17:30 JST,DO280VT,Red Hat OpenShift Administration II: Configuring a Production Cluster (DO280VT),91155616,Scheduled
